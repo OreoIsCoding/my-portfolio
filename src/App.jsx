@@ -2,6 +2,7 @@ import { useState } from 'react'
 import Navigation from './components/Navigation'
 import Hero from './components/Hero'
 import About from './components/sections/about/About'
+import Skills from './components/sections/skills/Skills'
 import profileImg from './assets/right-bg-2.png'
 
 const App = () => {
@@ -29,11 +30,11 @@ const App = () => {
   };
 
   const renderMobileContent = () => (
-    <div className="flex-1 flex flex-col lg:hidden relative min-h-screen opacity-0 animate-fadeIn" 
+    <div className="flex-1 flex flex-col lg:hidden relative min-h-screen opacity-0 animate-fadeIn"
       style={{ animationDelay: '0.4s', animationFillMode: 'forwards' }}>
       {/* Mobile Image */}
       <div className="fixed inset-x-0 bottom-0 z-10 pointer-events-none overflow-hidden w-full flex justify-center">
-        <div className="relative flex justify-center items-end opacity-0 animate-slideUp max-w-[500px] mx-auto" 
+        <div className="relative flex justify-center items-end opacity-0 animate-slideUp max-w-[500px] mx-auto"
           style={{ animationDelay: '0.8s', animationFillMode: 'forwards' }}>
           <img
             src={profileImg}
@@ -61,12 +62,12 @@ const App = () => {
 
   const renderDesktopContent = () => (
     <>
-      <div className="hidden lg:flex w-[45%] pt-4 lg:pt-2 xl:pt-8 px-8 xl:px-16 opacity-0 animate-slideRight" 
+      <div className="hidden lg:flex w-[45%] pt-4 lg:pt-2 xl:pt-8 px-8 xl:px-16 opacity-0 animate-slideRight"
         style={{ animationDelay: '0.4s', animationFillMode: 'forwards' }}>
         <Hero />
       </div>
       <div className="hidden lg:flex w-[55%] flex-col">
-        <div className="flex justify-end w-full pt-4 lg:pt-6 xl:pt-8 animate-fadeIn" 
+        <div className="flex justify-end w-full pt-4 lg:pt-6 xl:pt-8 animate-fadeIn"
           style={{ paddingRight: '15%' }}>
           <Navigation />
         </div>
@@ -118,6 +119,7 @@ const App = () => {
         </div>
       </div>
       <About />
+      <Skills />
     </>
   )
 }

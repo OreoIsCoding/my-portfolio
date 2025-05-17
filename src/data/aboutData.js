@@ -1,15 +1,15 @@
 export const aboutData = {
   whoAmI: {
     title: "Who am I?",
-    description: "A passionate Frontend Developer with experience in building responsive web applications. I specialize in JavaScript and modern frameworks like React."
+    description: "Hi, I'm Paul Axel Dionisio — a frontend developer who loves creating clean, responsive, and user-friendly web interfaces. I mainly work with JavaScript and React, building fast and modern apps powered by Vite and styled with Tailwind CSS. I enjoy turning ideas into functional, visually appealing digital experiences that feel good to use and easy to maintain."
   },
   info: {
-    location: "Balagtas,Bulacan, Philippines",
+    location: "Balagtas, Bulacan, Philippines",
     email: "Pauldionisio137@gmail.com"
   },
   interests: [
     'Web Development',
-    'Mobile App Development',
+     'Frontend Development',
     'UI/UX',
     'Tech'
   ]

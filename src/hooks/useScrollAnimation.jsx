@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 
-const useScrollAnimation = (threshold = 0.1) => {
+const useScrollAnimation = (threshold = 0.1, repeat = true) => {
   const ref = useRef(null);
   const [isVisible, setIsVisible] = useState(false);
   const isMobile = window.innerWidth < 640;
@@ -8,8 +8,11 @@ const useScrollAnimation = (threshold = 0.1) => {
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
+        // Toggle visibility based on intersection
+        setIsVisible(entry.isIntersecting);
+
+        // Only unobserve if we don't want to repeat the animation
+        if (!repeat && entry.isIntersecting) {
           observer.unobserve(entry.target);
         }
       },
@@ -29,7 +32,7 @@ const useScrollAnimation = (threshold = 0.1) => {
         observer.unobserve(currentRef);
       }
     };
-  }, [threshold, isMobile]);
+  }, [threshold, isMobile, repeat]);
 
   return [ref, isVisible];
 };
