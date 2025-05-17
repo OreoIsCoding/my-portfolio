@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import Navigation from './components/Navigation'
 import Hero from './components/Hero'
+import About from './components/sections/about/About'
 import profileImg from './assets/right-bg-2.png'
 
 const App = () => {
@@ -86,35 +87,38 @@ const App = () => {
   );
 
   return (
-    <div className="relative min-h-screen overflow-hidden">
-      <div className="absolute inset-0">
-        {/* Background Sections */}
-        <div className="absolute inset-0 z-10">
-          <div className="relative w-full h-full">
-            <div className="absolute inset-0 bg-black lg:hidden" />
-            <div className="hidden lg:block absolute top-0 left-0 w-[45%] h-full bg-white" />
-            <div
-              className="hidden lg:block absolute top-0 right-0 w-[60%] h-full bg-black"
-              style={{
-                clipPath: 'polygon(28% 0%, 100% 0%, 100% 100%, 20% 100%)'
-              }}
-            />
-          </div>
-        </div>
-
-        {/* Main Content */}
-        <div className="relative z-20 flex flex-col lg:flex-row min-h-screen">
-          {/* Mobile Header */}
-          <div className="flex justify-between items-center p-3 sm:p-4 lg:hidden">
-            <span className="text-xl sm:text-2xl font-bold text-white">Paul D.</span>
-            <Navigation />
+    <>
+      <div className="relative min-h-screen overflow-hidden">
+        <div className="absolute inset-0">
+          {/* Background Sections */}
+          <div className="absolute inset-0 z-10">
+            <div className="relative w-full h-full">
+              <div className="absolute inset-0 bg-black lg:hidden" />
+              <div className="hidden lg:block absolute top-0 left-0 w-[70%] h-full bg-gray-100" />
+              <div
+                className="hidden lg:block absolute top-0 right-0 w-[60%] h-full bg-black"
+                style={{
+                  clipPath: 'polygon(28% 0%, 100% 0%, 100% 100%, 20% 100%)'
+                }}
+              />
+            </div>
           </div>
 
-          {renderMobileContent()}
-          {renderDesktopContent()}
+          {/* Main Content */}
+          <div className="relative z-20 flex flex-col lg:flex-row min-h-screen">
+            {/* Mobile Header */}
+            <div className="flex justify-between items-center p-3 sm:p-4 lg:hidden">
+              <span className="text-xl sm:text-2xl font-bold text-white">Paul D.</span>
+              <Navigation />
+            </div>
+
+            {renderMobileContent()}
+            {renderDesktopContent()}
+          </div>
         </div>
       </div>
-    </div>
+      <About />
+    </>
   )
 }
 
