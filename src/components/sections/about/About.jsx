@@ -2,6 +2,7 @@ import React from 'react';
 import useScrollAnimation from '../../../hooks/useScrollAnimation';
 import AboutBox from './AboutBox';
 import TimelineSection from './TimelineSection';
+import CertificatesAlbum from './CertificatesAlbum';
 import { experienceData, educationData, certificatesData } from '../../../data/timelineData';
 
 const About = () => {
@@ -27,7 +28,7 @@ const About = () => {
           ${isTimelineVisible ? 'opacity-100' : 'opacity-0'}`}>
           <TimelineSection title="Experience" items={experienceData} />
           <TimelineSection title="Education" items={educationData} />
-          <TimelineSection title="Certificates" items={certificatesData} />
+          <CertificatesAlbum certificates={certificatesData} />
         </div>
       </div>
     </section>
