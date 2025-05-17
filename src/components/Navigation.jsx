@@ -6,8 +6,7 @@ const Navigation = () => {
     const navLinks = [
         { name: 'About', href: 'about' },
         { name: 'Skills', href: 'skills' },
-        { name: 'Projects', href: 'projects' },
-        { name: 'Contact Me', href: 'contact-me' }
+        { name: 'Projects', href: 'projects' }
     ];
 
     const menuButtonStyles = "lg:hidden fixed right-3 top-3 p-2 rounded-xl bg-white/5 backdrop-blur-sm border border-white/10 text-white hover:bg-white/10 transition-all duration-300";
@@ -75,6 +74,16 @@ const Navigation = () => {
                 transition-all duration-300 group-hover:w-full" />
                         </a>
                     ))}
+
+                    <a
+                        // href="/path-to-your-cv.pdf"
+                        download
+                        className="px-4 py-2 rounded-full bg-white text-black/90 hover:bg-white/90
+                            transition-all duration-300 text-sm font-medium 
+                            hover:scale-105 active:scale-95 cursor-pointer"
+                    >
+                        Download CV
+                    </a>
                 </div>
             </div>
         </nav>

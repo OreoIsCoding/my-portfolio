@@ -3,7 +3,10 @@ import Navigation from './components/Navigation'
 import Hero from './components/Hero'
 import About from './components/sections/about/About'
 import Skills from './components/sections/skills/Skills'
+import Projects from './components/sections/projects/Projects';
 import profileImg from './assets/right-bg-2.png'
+import AnimatedBackground from './components/AnimatedBackground'
+import Footer from './components/Footer'
 
 const App = () => {
   // Constants for styles and animations
@@ -90,14 +93,15 @@ const App = () => {
   return (
     <>
       <div className="relative min-h-screen overflow-hidden">
+        <AnimatedBackground />
         <div className="absolute inset-0">
           {/* Background Sections */}
           <div className="absolute inset-0 z-10">
             <div className="relative w-full h-full">
-              <div className="absolute inset-0 bg-black lg:hidden" />
-              <div className="hidden lg:block absolute top-0 left-0 w-[70%] h-full bg-gray-100" />
+              <div className="absolute inset-0 bg-black/90 lg:hidden" />
+              <div className="hidden lg:block absolute top-0 left-0 w-[70%] h-full bg-gray-100/95" />
               <div
-                className="hidden lg:block absolute top-0 right-0 w-[60%] h-full bg-black"
+                className="hidden lg:block absolute top-0 right-0 w-[60%] h-full bg-black/95"
                 style={{
                   clipPath: 'polygon(28% 0%, 100% 0%, 100% 100%, 20% 100%)'
                 }}
@@ -120,6 +124,8 @@ const App = () => {
       </div>
       <About />
       <Skills />
+      <Projects />
+      <Footer />
     </>
   )
 }

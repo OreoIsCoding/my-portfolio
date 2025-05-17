@@ -2,14 +2,14 @@ import React from 'react';
 
 export const TimelineItem = ({ item, index, isCertificates, onImageClick }) => {
   return (
-    <div className={`flex flex-col sm:flex-row items-start sm:items-center mb-6 pl-6 sm:pl-0
+    <div className={`flex flex-col sm:flex-row items-start sm:items-center mb-3 pl-6 sm:pl-0
       transition-all duration-500 transform ${index % 2 === 1 ? 'sm:flex-row-reverse' : ''}`}>
-      <div className={`w-full sm:w-[50%] ${index % 2 === 1 ? 'sm:text-right' : 'sm:text-left'}`}>
+      <div className={`w-full sm:w-[49%] ${index % 2 === 1 ? 'sm:text-right' : 'sm:text-left'}`}>
         <div className={`p-3 sm:p-4 bg-white/5 rounded-lg backdrop-blur-sm border border-white/5
           transform transition-all duration-500 hover:scale-[1.02] hover:bg-white/10
           shadow-lg shadow-black/10 hover:shadow-xl hover:shadow-black/20
-          translate-y-4 animate-slideUp group max-w-[450px] w-full
-          ${index % 2 === 1 ? 'sm:ml-auto sm:mr-0' : 'sm:ml-0 sm:mr-auto'}`}>
+          translate-y-4 animate-slideUp group w-full
+          ${index % 2 === 1 ? 'sm:ml-auto sm:mr-[-20px]' : 'sm:mr-auto sm:ml-[-20px]'}`}>
           
           <TimelineHeader year={item.year} />
           <TimelineContent item={item} />
@@ -20,7 +20,7 @@ export const TimelineItem = ({ item, index, isCertificates, onImageClick }) => {
       </div>
 
       <TimelineNode />
-      <div className="hidden sm:block sm:w-[48%]" />
+      <div className="hidden sm:block sm:w-[49%]" />
     </div>
   );
 };
@@ -59,10 +59,10 @@ const CertificatePreview = ({ image, title, onClick }) => (
 );
 
 const TimelineNode = () => (
-  <div className="absolute left-0 sm:static w-6 sm:w-[4%] flex justify-center mt-5 sm:mt-0">
+  <div className="absolute left-0 sm:static w-6 sm:w-[0.5%] flex justify-center mt-5 sm:mt-0 sm:mx-[-8px]">
     <div className="relative">
       <div className="absolute -inset-1.5 bg-emerald-400/20 rounded-full blur-sm" />
-      <div className="relative w-2.5 h-2.5 bg-emerald-400 rounded-full transform transition-all duration-500 
+      <div className="relative w-2 h-2 bg-emerald-400 rounded-full transform transition-all duration-500 
         hover:scale-150 hover:bg-emerald-300" />
     </div>
   </div>

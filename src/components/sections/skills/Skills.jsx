@@ -4,24 +4,42 @@ import { skillsData } from '../../../data/skillsData';
 import SectionHeader from '../../UI/SectionHeader';
 import ToolsMarquee from './ToolsMarquee';
 
-const SkillBar = ({ name, level, icon: Icon }) => (
-  <div className="mb-4">
-    <div className="flex justify-between items-center mb-1">
-      <div className="flex items-center gap-2">
-        {Icon && <Icon className="w-4 h-4 text-emerald-400" />}
-        <span className="text-sm text-gray-200">{name}</span>
+const SkillBar = ({ name, level, icon: Icon }) => {
+  const getLevelColor = (level) => {
+    switch(level) {
+      case 'Expert': return 'from-emerald-500 to-emerald-400';
+      case 'Advanced': return 'from-emerald-400 to-emerald-300';
+      case 'Intermediate': return 'from-emerald-300 to-emerald-200';
+      default: return 'from-emerald-200 to-emerald-100';
+    }
+  };
+
+  const getLevelWidth = (level) => {
+    switch(level) {
+      case 'Expert': return 'w-full';
+      case 'Advanced': return 'w-[85%]';
+      case 'Intermediate': return 'w-[70%]';
+      default: return 'w-[50%]';
+    }
+  };
+
+  return (
+    <div className="mb-4">
+      <div className="flex justify-between items-center mb-1">
+        <div className="flex items-center gap-2">
+          {Icon && <Icon className="w-4 h-4 text-emerald-400" />}
+          <span className="text-sm text-gray-200">{name}</span>
+        </div>
+        <span className="text-xs text-emerald-400">{level}</span>
       </div>
-      <span className="text-xs text-emerald-400">{level}%</span>
+      <div className="h-2 bg-white/5 rounded-full overflow-hidden">
+        <div className={`h-full bg-gradient-to-r ${getLevelColor(level)} rounded-full 
+          transition-all duration-1000 ease-out ${getLevelWidth(level)}`}
+        />
+      </div>
     </div>
-    <div className="h-2 bg-white/5 rounded-full overflow-hidden">
-      <div 
-        className="h-full bg-gradient-to-r from-emerald-500 to-emerald-400 rounded-full 
-          transition-all duration-1000 ease-out"
-        style={{ width: `${level}%`, transform: 'translateX(-100%)', opacity: 0 }}
-      />
-    </div>
-  </div>
-);
+  );
+};
 
 const Skills = () => {
   const [ref, isVisible] = useScrollAnimation();

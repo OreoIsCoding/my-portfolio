@@ -24,8 +24,8 @@ const AboutBox = () => {
                             <h4 className="text-white font-semibold text-sm sm:text-base mb-2">Interests</h4>
                             <div className="flex flex-wrap gap-1.5 sm:gap-2">
                                 {interests.map((interest) => (
-                                    <span 
-                                        key={interest} 
+                                    <span
+                                        key={interest}
                                         className="px-2 sm:px-3 py-0.5 sm:py-1 bg-emerald-500/10 
                                         text-emerald-400 rounded-full text-xs sm:text-sm">
                                         {interest}

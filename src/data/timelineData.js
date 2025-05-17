@@ -15,6 +15,7 @@ export const experienceData = [
     side: 'right',
     description: 'Customer Service Representative with a focus on providing exceptional support and solutions to customers.'
   },
+  
    {
     year: 'Feb 2025 - May 2025',
     title: 'Frontend Developer Intern',
@@ -25,6 +26,13 @@ export const experienceData = [
  ];
 
 export const educationData = [
+      {
+    year: '2017-2019',  
+    title: 'Information Communication Technology',
+    institution: 'Dr. Yanga\'s Colleges Inc.',
+    side: 'right',
+    description: 'Completed Senior High School with a focus on Information Communication Technology, gaining foundational knowledge in IT and robotics.'
+  },
   {
     year: '2021-2025',  
     title: 'Bachelor of Science in Information Technology',

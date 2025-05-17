@@ -14,31 +14,31 @@ export const skillsData = [
     category: "Frontend",
     icon: FaReact,
     skills: [
-      { name: "React", level: 85, icon: FaReact },
-      { name: "JavaScript", level: 90, icon: FaJs },
-      { name: "HTML5", level: 95, icon: FaHtml5 },
-      { name: "CSS3", level: 90, icon: FaCss3Alt },
-      { name: "TailwindCSS", level: 85, icon: SiTailwindcss },
-      { name: "Vue", level: 75, icon: SiVuedotjs },
+      { name: "React", level: "Advanced", icon: FaReact },
+      { name: "JavaScript", level: "Advanced", icon: FaJs },
+      { name: "HTML5", level: "Expert", icon: FaHtml5 },
+      { name: "CSS3", level: "Advanced", icon: FaCss3Alt },
+      { name: "TailwindCSS", level: "Advanced", icon: SiTailwindcss },
+      { name: "Vue", level: "Intermediate", icon: SiVuedotjs },
     ]
   },
   {
     category: "Backend",
     icon: SiFirebase,
     skills: [
-      { name: "Firebase", level: 90, icon: SiFirebase },
-       { name: "Java", level: 80, icon: FaJava },
-      { name: "SQL", level: 75, icon: FaDatabase },
+      { name: "Firebase", level: "Advanced", icon: SiFirebase },
+      { name: "Java", level: "Intermediate", icon: FaJava },
+      { name: "SQL", level: "Intermediate", icon: FaDatabase },
     ]
   },
   {
     category: "Tools & Others",
     icon: FaCode, 
     skills: [
-      { name: "Git", level: 90, icon: FaGitAlt },
-      { name: "VS Code", level: 90, icon: FaCode },
-      { name: "Figma", level: 85, icon: FaFigma },
-      { name: "RESTful APIs", level: 90, icon: FaCodeBranch },
+      { name: "Git", level: "Advanced", icon: FaGitAlt },
+      { name: "VS Code", level: "Advanced", icon: FaCode },
+      { name: "Figma", level: "Advanced", icon: FaFigma },
+      { name: "RESTful APIs", level: "Advanced", icon: FaCodeBranch },
     ]
   }
 ];

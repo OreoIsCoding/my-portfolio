@@ -17,11 +17,11 @@ const TimelineSection = ({ title, items, initialVisibleCount = 3 }) => {
       <div className={`relative transition-all duration-700 transform
         ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
         {/* Timeline Center Line */}
-        <div className="absolute left-3 sm:left-1/2 transform sm:-translate-x-1/2 h-full w-0.5 
+        <div className="absolute left-3 sm:left-1/2 transform sm:-translate-x-1/2 h-[95%] w-0.5 
           bg-gradient-to-b from-emerald-500/50 via-emerald-400/30 to-emerald-500/50" />
         
         {/* Timeline Items */}
-        <div className="relative">
+        <div className="relative pb-8">
           {displayedItems.map((item, index) => (
             <TimelineItem
               key={index}
@@ -35,7 +35,7 @@ const TimelineSection = ({ title, items, initialVisibleCount = 3 }) => {
 
         {/* Show More/Less Button */}
         {hasMore && (
-          <div className="text-center mt-8">
+          <div className="text-center mt-12 relative z-10">
             <button
               onClick={() => setShowAll(!showAll)}
               className="px-4 py-2 bg-emerald-500/10 text-emerald-400 rounded-full text-sm
