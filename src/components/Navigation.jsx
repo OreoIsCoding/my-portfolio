@@ -68,7 +68,8 @@ const Navigation = () => {
         className={`
                 fixed lg:static 
                 left-0 right-0 top-[60px] lg:right-auto lg:top-auto
-                h-auto max-h-[80vh] overflow-auto
+                h-auto max-h-[80vh]
+                overflow-visible
                 transition-all duration-500 ease-out 
                 flex items-center justify-center lg:block
                 backdrop-blur-md lg:backdrop-blur-none
@@ -105,9 +106,10 @@ const Navigation = () => {
             // href="/path-to-your-cv.pdf"
             download
             className="px-4 py-2 rounded-full bg-white text-black/90 hover:bg-white/90
-                            transition-all duration-300 text-sm font-medium 
-                            hover:scale-105 active:scale-95 cursor-pointer"
-          >
+              transition-all duration-300 text-sm font-medium 
+              hover:scale-[1.03] active:scale-100 cursor-pointer
+              will-change-transform max-w-[100%] overflow-hidden"
+           >
             Download CV
           </a>
         </div>
