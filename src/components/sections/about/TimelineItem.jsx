@@ -1,9 +1,16 @@
 import React from 'react';
+import useScrollAnimation from '../../../hooks/useScrollAnimation';
 
 export const TimelineItem = ({ item, index, isCertificates, onImageClick }) => {
+  const [itemRef, isVisible] = useScrollAnimation(0.1, true);
+
   return (
-    <div className={`flex flex-col sm:flex-row items-start sm:items-center mb-3 pl-6 sm:pl-0
-      transition-all duration-500 transform ${index % 2 === 1 ? 'sm:flex-row-reverse' : ''}`}>
+    <div
+      ref={itemRef}
+      className={`flex flex-col sm:flex-row items-start sm:items-center mb-3 pl-6 sm:pl-0
+        transition-all duration-700 transform ${index % 2 === 1 ? 'sm:flex-row-reverse' : ''}
+        ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
+    >
       <div className={`w-full sm:w-[49%] ${index % 2 === 1 ? 'sm:text-right' : 'sm:text-left'}`}>
         <div className={`p-3 sm:p-4 bg-white/5 rounded-lg backdrop-blur-sm border border-white/5
           transform transition-all duration-500 hover:scale-[1.02] hover:bg-white/10
@@ -43,16 +50,18 @@ const TimelineContent = ({ item }) => (
 
 const CertificatePreview = ({ image, title, onClick }) => (
   <div className="mt-3 relative group cursor-pointer" onClick={() => onClick(image)}>
-    <div className="aspect-[16/11] relative overflow-hidden rounded-lg">
+    <div className="aspect-[16/11] relative overflow-hidden rounded-lg border border-white/10">
       <img 
         src={image} 
         alt={title}
         className="w-full h-full object-cover rounded-lg transition-all duration-500
-          group-hover:scale-110 group-hover:opacity-90"
+          group-hover:scale-105"
       />
-      <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent 
-        opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-        <span className="text-white bg-black/50 px-4 py-2 rounded-full text-sm">Click to view</span>
+      <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 
+        transition-all duration-300 flex items-center justify-center">
+        <div className="px-4 py-2 bg-black/80 rounded-full border border-white/20">
+          <span className="text-white text-sm">Click to preview</span>
+        </div>
       </div>
     </div>
   </div>
