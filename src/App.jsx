@@ -92,6 +92,11 @@ const App = () => {
 
   return (
     <>
+      {/* Mobile Navigation */}
+      <div className="lg:hidden">
+        <Navigation />
+      </div>
+
       <div className="relative min-h-screen overflow-hidden">
         <AnimatedBackground />
         <div className="absolute inset-0">
@@ -114,7 +119,6 @@ const App = () => {
             {/* Mobile Header */}
             <div className="flex justify-between items-center p-3 sm:p-4 lg:hidden">
               <span className="text-xl sm:text-2xl font-bold text-white">Paul D.</span>
-              <Navigation />
             </div>
 
             {renderMobileContent()}
