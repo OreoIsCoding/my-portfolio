@@ -6,6 +6,7 @@ import cert7 from "../assets/certificates/certificate_7.png";
 import cert8 from "../assets/certificates/certificate_8.png";
 import cert9 from "../assets/certificates/certificate_9.jpg";
 import cert10 from "../assets/certificates/certificate_10.jpg";
+import ojtCertificate from "../assets/certificates/OJT_certificate.jpg";
 
 export const experienceData = [
   {
@@ -47,6 +48,14 @@ export const educationData = [
 ];
 
 export const certificatesData = [
+    {
+    year: "February 2025 - May 2025",
+    title: "Frontend Developer Intern",
+    institution: "ISPIR Center - Bulacan State University",
+    description:
+      "Gained hands-on experience in frontend development, working with React Vite, TailwindCSS and API integration to create user-friendly web applications.",
+    image: ojtCertificate,
+  },
   {
     year: "October 2023",
     title: "IBM IT Support Professional",
@@ -105,4 +114,14 @@ export const certificatesData = [
     description: "Core Java programming concepts and practices",
     image: cert2,
   },
-].sort((a, b) => new Date(a.year) - new Date(b.year));
+
+].sort((a, b) => {
+  // Helper : get the latest date from a year string (handles ranges)
+  const getLatestDate = (yearStr) => {
+    if (!yearStr) return new Date(0);
+    const parts = yearStr.split("-").map((s) => s.trim());
+    const latest = parts[parts.length - 1];
+    return new Date(latest);
+  };
+  return getLatestDate(b.year) - getLatestDate(a.year);
+});
