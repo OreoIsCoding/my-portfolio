@@ -42,39 +42,54 @@ const SkillBar = ({ name, level, icon: Icon }) => {
 };
 
 const Skills = () => {
-  const [ref, isVisible] = useScrollAnimation();
+  const [titleRef, isTitleVisible] = useScrollAnimation(0.4, true);
+  const [containerRef, isContainerVisible] = useScrollAnimation(0.5, true);
+  const [skillsRef, isSkillsVisible] = useScrollAnimation(0.5, true);
+  const [toolsRef, isToolsVisible] = useScrollAnimation(0.5, true);
 
   return (
     <section id="skills" className="min-h-screen bg-black/95 py-16 sm:py-20 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-6xl mx-auto" ref={ref}>
-        <div className={`transition-all duration-1000
-          ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+      <div className="max-w-6xl mx-auto">
+        <div ref={titleRef} className={`transition-all duration-1000 transform
+          ${isTitleVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
           <SectionHeader title="Skills" />
         </div>
-        
-        <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8
-          transition-all duration-1000
-          ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-          {skillsData.map((category, index) => (
-            <div 
-              key={category.category}
-              className="bg-white/5 backdrop-blur-sm rounded-xl p-6 border border-white/10
-                transform transition-all duration-500 hover:bg-white/10"
-              style={{ animationDelay: `${index * 0.2}s` }}
-            >
-              <div className="flex items-center gap-3 mb-6">
-                {category.icon && <category.icon className="w-6 h-6 text-emerald-400" />}
-                <h3 className="text-xl font-bold text-emerald-400">{category.category}</h3>
+
+        <div ref={containerRef} 
+          className={`mt-12 bg-black/50 rounded-2xl border border-white/10 p-6 sm:p-8
+            transition-all duration-1000 transform
+            ${isContainerVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+          
+          <div ref={skillsRef} 
+            className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8
+              transition-all duration-1000 transform
+              ${isSkillsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+            {skillsData.map((category, index) => (
+              <div 
+                key={category.category}
+                className="bg-black/50 rounded-xl p-6 border border-white/10
+                  transform transition-all duration-500 hover:bg-white/5"
+                style={{ animationDelay: `${index * 0.2}s` }}
+              >
+                <div className="flex items-center gap-3 mb-6">
+                  {category.icon && <category.icon className="w-6 h-6 text-emerald-400" />}
+                  <h3 className="text-xl font-bold text-emerald-400">{category.category}</h3>
+                </div>
+                <div className="space-y-4">
+                  {category.skills.map((skill) => (
+                    <SkillBar key={skill.name} {...skill} />
+                  ))}
+                </div>
               </div>
-              <div className="space-y-4">
-                {category.skills.map((skill) => (
-                  <SkillBar key={skill.name} {...skill} />
-                ))}
-              </div>
-            </div>
-          ))}
+            ))}
+          </div>
+          
+          <div ref={toolsRef} 
+            className={`mt-12 transition-all duration-1000 transform
+              ${isToolsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+            <ToolsMarquee />
+          </div>
         </div>
-        <ToolsMarquee />
       </div>
     </section>
   );

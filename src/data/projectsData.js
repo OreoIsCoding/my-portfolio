@@ -32,6 +32,60 @@ export const projectsData = [
         `,
     image: quizBee,
     tech: ["HTML5", "CSS3", "JavaScript"],
+  }, {
+    title: "QuizBee",
+    description: `
+        A quiz web application built with HTML5, CSS3, and JavaScript.
+        It allows users to take quizzes, view results, and track progress.
+        The admin can create and manage quizzes. It is real-time like kahoot.
+        `,
+    image: quizBee,
+    tech: ["HTML5", "CSS3", "JavaScript"],
+  }, {
+    title: "QuizBee",
+    description: `
+        A quiz web application built with HTML5, CSS3, and JavaScript.
+        It allows users to take quizzes, view results, and track progress.
+        The admin can create and manage quizzes. It is real-time like kahoot.
+        `,
+    image: quizBee,
+    tech: ["HTML5", "CSS3", "JavaScript"],
+  }, {
+    title: "QuizBee",
+    description: `
+        A quiz web application built with HTML5, CSS3, and JavaScript.
+        It allows users to take quizzes, view results, and track progress.
+        The admin can create and manage quizzes. It is real-time like kahoot.
+        `,
+    image: quizBee,
+    tech: ["HTML5", "CSS3", "JavaScript"],
+  }, {
+    title: "QuizBee",
+    description: `
+        A quiz web application built with HTML5, CSS3, and JavaScript.
+        It allows users to take quizzes, view results, and track progress.
+        The admin can create and manage quizzes. It is real-time like kahoot.
+        `,
+    image: quizBee,
+    tech: ["HTML5", "CSS3", "JavaScript"],
+  }, {
+    title: "QuizBee",
+    description: `
+        A quiz web application built with HTML5, CSS3, and JavaScript.
+        It allows users to take quizzes, view results, and track progress.
+        The admin can create and manage quizzes. It is real-time like kahoot.
+        `,
+    image: quizBee,
+    tech: ["HTML5", "CSS3", "JavaScript"],
+  }, {
+    title: "QuizBee",
+    description: `
+        A quiz web application built with HTML5, CSS3, and JavaScript.
+        It allows users to take quizzes, view results, and track progress.
+        The admin can create and manage quizzes. It is real-time like kahoot.
+        `,
+    image: quizBee,
+    tech: ["HTML5", "CSS3", "JavaScript"],
   },
 
   // magdadagdag pa ako ng projects dito...

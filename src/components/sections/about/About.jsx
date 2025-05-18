@@ -7,6 +7,7 @@ import { experienceData, educationData, certificatesData } from '../../../data/t
 
 const About = () => {
   const [titleRef, isTitleVisible] = useScrollAnimation(0.1, true);
+  const [containerRef, isContainerVisible] = useScrollAnimation(0.05, true);
   const [aboutBoxRef, isAboutBoxVisible] = useScrollAnimation(0.1, true);
   const [timelineRef, isTimelineVisible] = useScrollAnimation(0.05, true);
 
@@ -18,16 +19,21 @@ const About = () => {
           <SectionHeader title="About Me" />
         </div>
 
-        <div ref={aboutBoxRef} className={`transition-all duration-1000 transform
-          ${isAboutBoxVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-          <AboutBox />
-        </div>
+        <div ref={containerRef} 
+          className={`mt-12 bg-black/50 rounded-2xl border border-white/10 p-6 sm:p-8
+            transition-all duration-1000 transform
+            ${isContainerVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+          <div ref={aboutBoxRef} className={`transition-all duration-1000 transform
+            ${isAboutBoxVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
+            <AboutBox />
+          </div>
 
-        <div ref={timelineRef} className={`space-y-20 sm:space-y-24 transition-all duration-1000
-          ${isTimelineVisible ? 'opacity-100' : 'opacity-0'}`}>
-          <TimelineSection title="Experience" items={experienceData} />
-          <TimelineSection title="Education" items={educationData} />
-          <TimelineSection title="Certificates" items={certificatesData} initialVisibleCount={3} />
+          <div ref={timelineRef} className={`space-y-16 mt-20 transition-all duration-1000
+            ${isTimelineVisible ? 'opacity-100' : 'opacity-0'}`}>
+            <TimelineSection title="Experience" items={experienceData} />
+            <TimelineSection title="Education" items={educationData} />
+            <TimelineSection title="Certificates" items={certificatesData} initialVisibleCount={3} />
+          </div>
         </div>
       </div>
     </section>
