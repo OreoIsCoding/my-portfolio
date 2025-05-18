@@ -45,14 +45,15 @@ const Skills = () => {
   const [ref, isVisible] = useScrollAnimation();
 
   return (
-    <section id="skills" className="min-h-screen bg-black/95 py-20 px-4 sm:px-6 lg:px-8">
+    <section id="skills" className="min-h-screen bg-black/95 py-16 sm:py-20 px-4 sm:px-6 lg:px-8">
       <div className="max-w-6xl mx-auto" ref={ref}>
         <div className={`transition-all duration-1000
           ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
           <SectionHeader title="Skills" />
         </div>
         
-        <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 transition-all duration-1000
+        <div className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8
+          transition-all duration-1000
           ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
           {skillsData.map((category, index) => (
             <div 

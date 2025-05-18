@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 const SectionHeader = ({ title }) => {
   return (
@@ -21,8 +21,10 @@ const SectionHeader = ({ title }) => {
         <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold">
           <span className="relative px-4 py-2">
             <span className="absolute inset-0 bg-emerald-500/10 blur-xl rounded-lg" />
-            <span className="relative bg-gradient-to-r from-white via-emerald-200 to-white 
-              text-transparent bg-clip-text">
+            <span
+              className="relative bg-gradient-to-r from-white via-emerald-200 to-white 
+              text-transparent bg-clip-text"
+            >
               {title}
             </span>
           </span>

@@ -10,13 +10,13 @@ const Projects = () => {
   const [ref, isVisible] = useScrollAnimation();
 
   return (
-    <section id="projects" className="min-h-screen bg-black/95 py-20 px-4 sm:px-6 lg:px-8">
+    <section id="projects" className="min-h-screen bg-black/95 py-16 sm:py-20 px-4 sm:px-6 lg:px-8">
       <div className="max-w-6xl mx-auto">
         <div className={`transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
           <SectionHeader title="Projects" />
         </div>
 
-        <div ref={ref} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div ref={ref} className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6">
           {projectsData.map((project, index) => (
             <div key={index} 
               className={`transition-all duration-1000 delay-${index * 200}
