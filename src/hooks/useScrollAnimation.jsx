@@ -3,22 +3,25 @@ import { useEffect, useRef, useState } from 'react';
 const useScrollAnimation = (threshold = 0.1, repeat = true) => {
   const ref = useRef(null);
   const [isVisible, setIsVisible] = useState(false);
-  const isMobile = window.innerWidth < 640;
+
+  // mobile landscape detection
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 640;
+  const isMobileLandscape =
+    typeof window !== 'undefined' &&
+    window.innerWidth < 900 &&
+    window.innerWidth > window.innerHeight;
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
-        // Toggle visibility based on intersection
         setIsVisible(entry.isIntersecting);
-
-        // Only unobserve if we don't want to repeat the animation
         if (!repeat && entry.isIntersecting) {
           observer.unobserve(entry.target);
         }
       },
       {
-        threshold: isMobile ? 0.15 : threshold,
-        rootMargin: isMobile ? '50px 0px' : '0px',
+        threshold: isMobileLandscape ? 0.08 : isMobile ? 0.15 : threshold,
+        rootMargin: isMobileLandscape ? '80px 0px' : isMobile ? '50px 0px' : '0px',
       }
     );
 
@@ -32,7 +35,7 @@ const useScrollAnimation = (threshold = 0.1, repeat = true) => {
         observer.unobserve(currentRef);
       }
     };
-  }, [threshold, isMobile, repeat]);
+  }, [threshold, isMobile, isMobileLandscape, repeat]);
 
   return [ref, isVisible];
 };

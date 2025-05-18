@@ -9,8 +9,8 @@ const Projects = () => {
   const sectionRef = useRef(null);
   const [selectedImage, setSelectedImage] = useState(null);
   const [showAll, setShowAll] = useState(false);
-  const [titleRef, isTitleVisible] = useScrollAnimation(0.4, true);
-  const [containerRef, isContainerVisible] = useScrollAnimation(0.3, true);
+  const [titleRef, isTitleVisible] = useScrollAnimation(0.4, false);
+  const [containerRef, isContainerVisible] = useScrollAnimation(0.3, false);  
 
   const initialCount = 3;
   const displayedProjects = showAll ? projectsData : projectsData.slice(0, initialCount);
@@ -25,7 +25,7 @@ const Projects = () => {
   };
 
   return (
-    <section ref={sectionRef} id="projects" className="relative min-h-screen bg-black/95 py-16 sm:py-20 px-4 sm:px-6 lg:px-8">
+    <section ref={sectionRef} id="projects" className="min-h-screen bg-black/95 py-16 sm:py-20 px-4 sm:px-6 lg:px-8">
       <div className="max-w-6xl mx-auto">
         <div ref={titleRef} className={`transition-all duration-1000 transform
           ${isTitleVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>

@@ -42,10 +42,10 @@ const SkillBar = ({ name, level, icon: Icon }) => {
 };
 
 const Skills = () => {
-  const [titleRef, isTitleVisible] = useScrollAnimation(0.4, true);
-  const [containerRef, isContainerVisible] = useScrollAnimation(0.5, true);
-  const [skillsRef, isSkillsVisible] = useScrollAnimation(0.5, true);
-  const [toolsRef, isToolsVisible] = useScrollAnimation(0.5, true);
+  const [titleRef, isTitleVisible] = useScrollAnimation(0.4, false);
+  const [containerRef, isContainerVisible] = useScrollAnimation(0.5, false);
+  const [skillsRef, isSkillsVisible] = useScrollAnimation(0.5, false);
+  const [toolsRef, isToolsVisible] = useScrollAnimation(0.5, false);
 
   return (
     <section id="skills" className="min-h-screen bg-black/95 py-16 sm:py-20 px-4 sm:px-6 lg:px-8">
