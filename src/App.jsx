@@ -7,6 +7,7 @@ import Projects from "./components/sections/projects/Projects";
 import profileImg from "./assets/right-bg-2.png";
 import AnimatedBackground from "./components/AnimatedBackground";
 import Footer from "./components/Footer";
+import BackToTop from "./components/UI/BackToTop";
 
 const App = () => {
   // Constants for styles and animations
@@ -141,6 +142,7 @@ const App = () => {
       <Skills />
       <Projects />
       <Footer />
+      <BackToTop />
     </>
   );
 };
