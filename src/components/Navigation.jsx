@@ -30,12 +30,12 @@ const Navigation = () => {
     };
 
     return (
-        <nav className="fixed lg:static right-0 top-0 z-[100] p-3 sm:p-4 lg:p-0">
+        <nav className="fixed lg:static right-0 top-0 z-[999] p-3 sm:p-4 lg:p-0">
             {/* Menu Toggle Button */}
             <button
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
-                className="lg:hidden fixed right-3 top-3 p-2 rounded-xl bg-white/5 backdrop-blur-sm 
-          border border-white/10 text-white hover:bg-white/10 transition-all duration-300"
+                className={`lg:hidden fixed right-3 top-3 p-2 rounded-xl bg-white/5 backdrop-blur-sm 
+                    border border-white/10 text-white hover:bg-white/10 transition-all duration-300 z-[999]`}
             >
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     {isMenuOpen ? (
@@ -48,17 +48,18 @@ const Navigation = () => {
 
             {/* Navigation Menu */}
             <div className={`
-        fixed lg:static 
-        left-0 right-0 top-16 lg:right-auto lg:top-auto
-        transition-all duration-500 ease-out 
-        flex items-center justify-center lg:block
-        backdrop-blur-lg lg:backdrop-blur-none
-        bg-black/80 lg:bg-transparent
-        py-6 lg:p-0
-        ${isMenuOpen ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-4'}
-        lg:opacity-100 lg:visible lg:translate-y-0
-        border-t border-b border-white/5 lg:border-none
-        shadow-2xl shadow-black/20 lg:shadow-none`}
+                fixed lg:static 
+                left-0 right-0 top-16 lg:right-auto lg:top-auto
+                transition-all duration-500 ease-out 
+                flex items-center justify-center lg:block
+                backdrop-blur-lg lg:backdrop-blur-none
+                bg-black/80 lg:bg-transparent
+                py-6 lg:p-0
+                ${isMenuOpen ? 'opacity-100 visible translate-y-0' : 'opacity-0 invisible -translate-y-4'}
+                lg:opacity-100 lg:visible lg:translate-y-0
+                border-t border-b border-white/5 lg:border-none
+                shadow-2xl shadow-black/20 lg:shadow-none
+                z-[999]`}
             >
                 <div className="flex flex-col lg:flex-row items-center lg:items-start gap-6 sm:gap-8 lg:gap-6 xl:gap-10">
                     {navLinks.map((link, index) => (
