@@ -1,6 +1,7 @@
 import myPortfolio from "../assets/project-images/my-portfolio.jpg";
 import enWeb from "../assets/project-images/snacf.jpg";
 import quizBee from "../assets/project-images/QuizBee.jpg";
+import typingTest from "../assets/project-images/typing_test.jpg";
 
 export const projectsData = [
   {
@@ -32,61 +33,17 @@ export const projectsData = [
         `,
     image: quizBee,
     tech: ["HTML5", "CSS3", "JavaScript"],
-  }, {
-    title: "QuizBee",
+  },  
+    {
+    title: "Typing Test",
     description: `
-        A quiz web application built with HTML5, CSS3, and JavaScript.
-        It allows users to take quizzes, view results, and track progress.
-        The admin can create and manage quizzes. It is real-time like kahoot.
-        `,
-    image: quizBee,
+        A typing test application built with HTML5, CSS3, and JavaScript.
+        It allows users to practice typing with timer and wpm.
+    `,
+    image: typingTest,
     tech: ["HTML5", "CSS3", "JavaScript"],
-  }, {
-    title: "QuizBee",
-    description: `
-        A quiz web application built with HTML5, CSS3, and JavaScript.
-        It allows users to take quizzes, view results, and track progress.
-        The admin can create and manage quizzes. It is real-time like kahoot.
-        `,
-    image: quizBee,
-    tech: ["HTML5", "CSS3", "JavaScript"],
-  }, {
-    title: "QuizBee",
-    description: `
-        A quiz web application built with HTML5, CSS3, and JavaScript.
-        It allows users to take quizzes, view results, and track progress.
-        The admin can create and manage quizzes. It is real-time like kahoot.
-        `,
-    image: quizBee,
-    tech: ["HTML5", "CSS3", "JavaScript"],
-  }, {
-    title: "QuizBee",
-    description: `
-        A quiz web application built with HTML5, CSS3, and JavaScript.
-        It allows users to take quizzes, view results, and track progress.
-        The admin can create and manage quizzes. It is real-time like kahoot.
-        `,
-    image: quizBee,
-    tech: ["HTML5", "CSS3", "JavaScript"],
-  }, {
-    title: "QuizBee",
-    description: `
-        A quiz web application built with HTML5, CSS3, and JavaScript.
-        It allows users to take quizzes, view results, and track progress.
-        The admin can create and manage quizzes. It is real-time like kahoot.
-        `,
-    image: quizBee,
-    tech: ["HTML5", "CSS3", "JavaScript"],
-  }, {
-    title: "QuizBee",
-    description: `
-        A quiz web application built with HTML5, CSS3, and JavaScript.
-        It allows users to take quizzes, view results, and track progress.
-        The admin can create and manage quizzes. It is real-time like kahoot.
-        `,
-    image: quizBee,
-    tech: ["HTML5", "CSS3", "JavaScript"],
-  },
+  },  
+
 
   // magdadagdag pa ako ng projects dito...
 ];
