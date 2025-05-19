@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import useScrollAnimation from '../../../hooks/useScrollAnimation';
 
 export const TimelineItem = ({ item, index, isCertificates, onImageClick }) => {
@@ -40,13 +40,32 @@ const TimelineHeader = ({ year }) => (
   </div>
 );
 
-const TimelineContent = ({ item }) => (
-  <>
-    <h3 className="text-base sm:text-lg font-bold text-white">{item.title}</h3>
-    <p className="text-gray-400 text-xs sm:text-sm mt-0.5">{item.company || item.institution}</p>
-    <p className="text-gray-300 text-xs sm:text-sm mt-1.5 leading-relaxed">{item.description}</p>
-  </>
-);
+const TimelineContent = ({ item }) => {
+  const [isExpanded, setIsExpanded] = useState(false);
+  const charLimit = 150;
+  const needsReadMore = item.description.length > charLimit;
+  
+  return (
+    <>
+      <h3 className="text-base sm:text-lg font-bold text-white">{item.title}</h3>
+      <p className="text-gray-400 text-xs sm:text-sm mt-0.5">{item.company || item.institution}</p>
+      <div className="relative">
+        <p className="text-gray-300 text-xs sm:text-sm mt-1.5 leading-relaxed">
+          {isExpanded ? item.description : 
+            needsReadMore ? `${item.description.slice(0, charLimit)}...` : item.description}
+        </p>
+        {needsReadMore && (
+          <button
+            onClick={() => setIsExpanded(!isExpanded)}
+            className="text-emerald-400 text-xs mt-1 hover:text-emerald-300 transition-colors duration-300"
+          >
+            {isExpanded ? 'Show Less' : 'Read More'}
+          </button>
+        )}
+      </div>
+    </>
+  );
+};
 
 const CertificatePreview = ({ image, title, onClick }) => (
   <div className="mt-3 relative group cursor-pointer" onClick={() => onClick(image)}>

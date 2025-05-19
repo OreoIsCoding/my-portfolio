@@ -24,7 +24,7 @@ export const experienceData = [
     company: "ISPIR Center - Bulacan State University",
     side: "right",
     description:
-      "Gained hands-on experience in frontend development, working with React Vite, TailwindCSS and API integration to create user-friendly web applications.",
+      "Gained hands-on experience in frontend development, working with React Vite, TailwindCSS and API integration to create user-friendly web applications. I was part of the team that developed a web application for the ISPIR Center, which is a research and development center at Bulacan State University. I was responsible for implementing the frontend design and functionality, as well as integrating the backend API.",
   },
 ];
 
