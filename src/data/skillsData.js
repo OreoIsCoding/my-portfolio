@@ -1,7 +1,7 @@
 import { 
   FaReact, FaHtml5, FaCss3Alt, FaJs, 
   FaPython, FaJava, FaGitAlt, FaFigma, 
-  FaDatabase, FaCodeBranch, FaCode
+  FaDatabase, FaCodeBranch, FaCode, FaPhp
 } from 'react-icons/fa';
 
 import { 
@@ -27,6 +27,8 @@ export const skillsData = [
     icon: SiFirebase,
     skills: [
       { name: "Firebase", level: "Advanced", icon: SiFirebase },
+      { name: "Python", level: "Intermediate", icon: FaPython },
+      { name: "PHP", level: "Intermediate", icon: FaPhp },
       { name: "Java", level: "Intermediate", icon: FaJava },
       { name: "SQL", level: "Intermediate", icon: FaDatabase },
     ]
