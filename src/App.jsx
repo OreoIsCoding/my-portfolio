@@ -4,6 +4,7 @@ import Hero from "./components/Hero";
 import About from "./components/sections/about/About";
 import Skills from "./components/sections/skills/Skills";
 import Projects from "./components/sections/projects/Projects";
+import Games from "./components/sections/minigame/MiniGame";
 import profileImg from "./assets/right-bg-2.png";
 import AnimatedBackground from "./components/AnimatedBackground";
 import Footer from "./components/Footer";
@@ -80,7 +81,7 @@ const App = () => {
       <div className="hidden lg:flex w-[55%] flex-col">
         <div
           className="flex justify-end w-full pt-4 lg:pt-6 xl:pt-8 animate-fadeIn"
-          style={{ paddingRight: "15%" }}
+          style={{ paddingRight: "5%" }}
         >
           <Navigation />
         </div>
@@ -141,6 +142,7 @@ const App = () => {
       <About />
       <Skills />
       <Projects />
+      <Games />
       <Footer />
       <BackToTop />
     </>
