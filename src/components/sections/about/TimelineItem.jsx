@@ -79,7 +79,7 @@ const CertificatePreview = ({ image, title, onClick }) => (
       <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 
         transition-all duration-300 flex items-center justify-center">
         <div className="px-4 py-2 bg-black/80 rounded-full border border-white/20">
-          <span className="text-white text-sm">Click to preview</span>
+          <span className="text-white text-sm">Click to view</span>
         </div>
       </div>
     </div>

@@ -7,7 +7,7 @@ const Navigation = () => {
     { name: "About", href: "about" },
     { name: "Skills", href: "skills" },
     { name: "Projects", href: "projects" },
-    { name: "Games", href: "games" },  
+    { name: "Game", href: "game" },  
   ];
 
   const menuButtonStyles =

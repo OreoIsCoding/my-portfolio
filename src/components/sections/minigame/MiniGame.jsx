@@ -8,7 +8,7 @@ const Games = () => {
   const [containerRef, isVisible] = useScrollAnimation(0.5, false);
 
   return (
-    <section id="games" className="min-h-screen bg-black/95 py-16 sm:py-20 px-4 sm:px-6 lg:px-8">
+    <section id="game" className="min-h-screen bg-black/95 py-16 sm:py-20 px-4 sm:px-6 lg:px-8">
       <div className="max-w-6xl mx-auto">
         <div ref={titleRef} className={`transition-all duration-1000 transform
           ${isTitleVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
