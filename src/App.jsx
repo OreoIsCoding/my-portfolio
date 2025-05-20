@@ -9,6 +9,7 @@ import profileImg from "./assets/right-bg-2.png";
 import AnimatedBackground from "./components/AnimatedBackground";
 import Footer from "./components/Footer";
 import BackToTop from "./components/UI/BackToTop";
+import VisitorCounter from "./components/VisitorCounter";
 
 const App = () => {
   // Constants for styles and animations
@@ -145,6 +146,7 @@ const App = () => {
       <Games />
       <Footer />
       <BackToTop />
+      <VisitorCounter />
     </>
   );
 };
