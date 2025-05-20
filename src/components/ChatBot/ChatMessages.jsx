@@ -1,8 +1,28 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import TypingIndicator from './TypingIndicator';
-import { FaRobot, FaUser } from 'react-icons/fa';
+import { FaRobot, FaUser, FaChevronDown } from 'react-icons/fa';
 
 const ChatMessages = ({ messages, isLoading, onLinkClick }) => {
+  const messagesEndRef = useRef(null);
+  const containerRef = useRef(null);
+  const [showScrollButton, setShowScrollButton] = useState(false);
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  const handleScroll = () => {
+    if (!containerRef.current) return;
+    const { scrollTop, scrollHeight, clientHeight } = containerRef.current;
+    const isNearBottom = scrollHeight - scrollTop - clientHeight < 100;
+    setShowScrollButton(!isNearBottom);
+  };
+
+  useEffect(() => {
+    // Scroll to bottom on new messages
+    scrollToBottom();
+  }, [messages]);
+
   const renderContent = (content) => {
     if (typeof content !== 'string') return content;
 
@@ -120,7 +140,11 @@ const ChatMessages = ({ messages, isLoading, onLinkClick }) => {
   };
 
   return (
-    <div className="h-[calc(100%-8.5rem)] overflow-y-auto p-4 space-y-6 bg-gray-950">
+    <div 
+      ref={containerRef}
+      onScroll={handleScroll}
+      className="h-[calc(100%-8.5rem)] overflow-y-auto p-4 space-y-6 bg-gray-950 relative"
+    >
       {messages.map((message, i) => (
         <div
           key={i}
@@ -148,6 +172,7 @@ const ChatMessages = ({ messages, isLoading, onLinkClick }) => {
           </div>
         </div>
       ))}
+      
       {isLoading && (
         <div className="flex items-end gap-2">
           <div className="w-8 h-8 rounded-full bg-gray-800 flex items-center justify-center">
@@ -157,6 +182,24 @@ const ChatMessages = ({ messages, isLoading, onLinkClick }) => {
             <TypingIndicator />
           </div>
         </div>
+      )}
+
+      <div ref={messagesEndRef} />
+
+      {/* Scroll to bottom button */}
+      {showScrollButton && (
+        <button
+          onClick={scrollToBottom}
+          className="fixed bottom-24 left-1/2 -translate-x-1/2 p-2
+            bg-black/10 hover:bg-black/20 backdrop-blur
+            rounded-full shadow-lg transition-all duration-200
+            flex items-center gap-1.5 z-50 cursor-pointer
+            border border-white/10 hover:border-white/20
+            animate-bounce"
+          title="New messages"
+        >
+          <FaChevronDown className="text-white text-xs" />
+        </button>
       )}
     </div>
   );
