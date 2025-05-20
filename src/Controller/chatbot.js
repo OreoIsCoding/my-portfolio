@@ -89,10 +89,16 @@ Rules:
 7. When adding navigation links:
    - Projects: End with "You can see all my projects here: [View All Projects](#projects)"
    - Skills: End with "Check out my complete skill set here: [View All Skills](#skills)"
-   - Experience: End with "View my full experience here: [View Full Experience](#experience)"
-   - Certificates: End with "See all my certificates here: [View All Certificates](#certificates)"
+   - Experience: End with "View my full experience here: [View Full Experience](#about)"
+   - Certificates: End with "See all my certificates here: [View All Certificates](#about)"
 8. Make navigation links stand alone on their own line
 9. Never invent or add information not in the data
+10. For education status questions:
+   - SHS: "I completed my SHS at Dr. Yanga's Colleges Inc. (2017-2019), where I took ICT"
+   - College: "I just graduated with a BSIT degree from STI College Balagtas (2021-2025)"
+   - If asked about current status: "I'm a fresh BSIT graduate from STI College Balagtas"
+11. For internship: "I've finished my internship at ISPIR Center - BSU (Feb-May 2025)"
+
 
 Question: ${question}`;
 }
@@ -100,8 +106,26 @@ Question: ${question}`;
 function getRelevantData(question) {
   const q = question.toLowerCase();
   const data = {};
-  
-  // Add relationship status check
+
+  // Enhanced education/internship detection
+  if (q.includes('shs') || q.includes('senior high') || q.includes('high school')) {
+    data.education = allData.education.filter(e => e.year.includes('2017-2019'));
+  } 
+  else if (q.includes('college') || q.includes('university')) {
+    data.education = allData.education.filter(e => e.year.includes('2021-2025'));
+  }
+  else if (q.includes('intern') || q.includes('ojt')) {
+    data.experience = allData.experience.filter(e => e.title.includes('Intern'));
+  }
+  // Expanded keywords for better detection
+  else if (q.includes('school') || q.includes('study') || q.includes('aral')) {
+    data.education = allData.education;
+  }
+  else if (q.includes('experience') || q.includes('work') || q.includes('trabaho')) {
+    data.experience = allData.experience;
+  }
+
+  // Keep existing relationship check
   if (q.includes('girlfriend') || q.includes('boyfriend') || q.includes('single') || 
       q.includes('relationship') || q.includes('jowa') || q.includes('crush')) {
     data.relationship = {
@@ -111,21 +135,15 @@ function getRelevantData(question) {
     };
   }
   
-  // Only add data if specifically asked about it
+  // Other existing data checks
   if (q.includes('project') || q.includes('portfolio') || q.includes('gawa')) {
     data.projects = allData.projects;
   }
   if (q.includes('skill') || q.includes('tech') || q.includes('programming')) {
     data.skills = allData.skills;
   }
-  if (q.includes('experience') || q.includes('work') || q.includes('trabaho')) {
-    data.experience = allData.experience;
-  }
   if (q.includes('contact') || q.includes('social') || q.includes('connect')) {
     data.social = allData.social;
-  }
-  if (q.includes('school') || q.includes('study') || q.includes('aral')) {
-    data.education = allData.education;
   }
   if (q.includes('cert') || q.includes('award')) {
     data.certificates = allData.certificates;
