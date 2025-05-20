@@ -42,7 +42,7 @@ const VisitorCounter = () => {
         <FaEye className="text-emerald-400 text-xs" />
         <span className="text-xs font-medium">{activeViewers}</span>
         <span className="text-xs font-medium overflow-hidden transition-all duration-300 max-w-0 group-hover:max-w-[4rem] opacity-0 group-hover:opacity-100">
-          watching
+          Viewing
         </span>
       </div>
     </div>

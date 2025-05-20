@@ -10,6 +10,7 @@ import AnimatedBackground from "./components/AnimatedBackground";
 import Footer from "./components/Footer";
 import BackToTop from "./components/UI/BackToTop";
 import VisitorCounter from "./components/VisitorCounter";
+import ChatBot from "./components/ChatBot/ChatBot";
 
 const App = () => {
   // Constants for styles and animations
@@ -147,6 +148,7 @@ const App = () => {
       <Footer />
       <BackToTop />
       <VisitorCounter />
+      <ChatBot />
     </>
   );
 };
