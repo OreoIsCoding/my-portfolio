@@ -1,4 +1,4 @@
-import { askPortfolioAI } from '../../Controller/deepseek';
+import { askPortfolioAI } from '../../Controller/chatbot';
 
 export async function getResponse(question, userName) {
   try {
