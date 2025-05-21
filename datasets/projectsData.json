@@ -1,0 +1,26 @@
+[
+  {
+    "title": "My Portfolio",
+    "description": "Personal portfolio website built with React and TailwindCSS, featuring smooth animations and responsive design.",
+    "image": "my-portfolio.jpg",
+    "tech": ["React", "TailwindCSS", "Vite"]
+  },
+  {
+    "title": "En-web",
+    "description": "A enrollment web application built with React and TailwindCSS. It allows users to enroll in courses, generate enrollment slip, and track progress. The admin can accept or reject enrollment requests.",
+    "image": "snacf.jpg",
+    "tech": ["React", "TailwindCSS", "JavaScript"]
+  },
+  {
+    "title": "QuizBee",
+    "description": "A quiz web application built with HTML5, CSS3, and JavaScript. It allows users to take quizzes, view results, and track progress. The admin can create and manage quizzes. It is real-time like kahoot.",
+    "image": "QuizBee.jpg",
+    "tech": ["HTML5", "CSS3", "JavaScript"]
+  },
+  {
+    "title": "Typing Test",
+    "description": "A typing test application built with HTML5, CSS3, and JavaScript. It allows users to practice typing with timer and wpm.",
+    "image": "typing_test.jpg",
+    "tech": ["HTML5", "CSS3", "JavaScript"]
+  }
+]

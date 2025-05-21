@@ -1,0 +1,32 @@
+[
+  {
+    "category": "Frontend",
+    "skills": [
+      { "name": "React", "level": "Advanced" },
+      { "name": "JavaScript", "level": "Advanced" },
+      { "name": "HTML5", "level": "Expert" },
+      { "name": "CSS3", "level": "Advanced" },
+      { "name": "TailwindCSS", "level": "Advanced" },
+      { "name": "Vue", "level": "Intermediate" }
+    ]
+  },
+  {
+    "category": "Backend",
+    "skills": [
+      { "name": "Firebase", "level": "Advanced" },
+      { "name": "Python", "level": "Intermediate" },
+      { "name": "PHP", "level": "Intermediate" },
+      { "name": "Java", "level": "Intermediate" },
+      { "name": "SQL", "level": "Intermediate" }
+    ]
+  },
+  {
+    "category": "Tools & Others",
+    "skills": [
+      { "name": "Git", "level": "Advanced" },
+      { "name": "VS Code", "level": "Advanced" },
+      { "name": "Figma", "level": "Advanced" },
+      { "name": "RESTful APIs", "level": "Advanced" }
+    ]
+  }
+]
