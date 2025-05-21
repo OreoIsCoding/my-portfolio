@@ -1,8 +1,8 @@
 import { ignoredWords } from '../../data/ignoredWords';
 import { detectLanguage } from './detectLanguage';
 
-export function analyzeQuestion(question) {
-  const autonomyPattern = /(bahala|whatever|decide|sarili|independence|autonomy|desisyon)/i;
+export function analyzeQuestion(question, userName) {
+  const autonomyPattern = /(bahala|whatever|decide|sarili|independence|autonomy|desisyon|ikaw na|ikaw bahala|up to you)/i;
   const isAutonomyQuestion = question.match(autonomyPattern);
 
   if (isAutonomyQuestion) {
@@ -10,13 +10,14 @@ export function analyzeQuestion(question) {
       type: 'text',
       data: {
         context: 'autonomy_assertion',
-        language: detectLanguage(question)
+        language: detectLanguage(question),
+        userName
       }
     };
   }
 
-  // Only check for direct name calling patterns
-  const directNamePattern = /\b(hey|hi|hello|uy|hoy|excuse me)\s+([A-Za-z]+)\b/i;
+  // Improved direct name calling patterns, allow for more greetings and trailing punctuation
+  const directNamePattern = /\b(hey|hi|hello|uy|hoy|excuse me|yo|oi|oy)[\s,]+([A-Za-z]+)[!,.]?\b/i;
   const match = question.match(directNamePattern);
 
   if (match) {
@@ -31,7 +32,8 @@ export function analyzeQuestion(question) {
         data: {
           context: 'name_correction',
           language: detectLanguage(question),
-          mentionedName
+          mentionedName,
+          userName
         }
       };
     }
@@ -41,7 +43,8 @@ export function analyzeQuestion(question) {
     type: 'text',
     data: {
       context: 'general',
-      language: detectLanguage(question)
+      language: detectLanguage(question),
+      userName
     }
   };
 }

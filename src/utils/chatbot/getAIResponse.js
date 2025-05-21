@@ -10,7 +10,12 @@ export async function getAIResponse(question, context, userName) {
       headers: API_CONFIG.headers,
       body: JSON.stringify({
         model: API_CONFIG.model,
-        messages: [{ role: 'user', content: prompt }],
+        messages: [
+          {
+            role: 'user',
+            content: prompt
+          }
+        ],
         max_tokens: API_CONFIG.maxTokens,
         temperature: API_CONFIG.temperature,
       }),
@@ -21,7 +26,8 @@ export async function getAIResponse(question, context, userName) {
     }
 
     const data = await response.json();
-    return data.choices[0].message.content;
+    // Cohere's response: { message: { content: [ { type: 'text', text: '...' } ] } }
+    return data.message?.content?.[0]?.text || '';
 
   } catch (error) {
     console.error('AI Response Error:', error);
@@ -31,6 +37,9 @@ export async function getAIResponse(question, context, userName) {
 
 function createPrompt(question, context, userName) {
   const relevantData = getRelevantData(question);
+
+  // Add memory/context awareness 
+  const lastTopic = context.lastTopic ? `The last topic discussed was: ${context.lastTopic}` : '';
 
   if (context.context === 'autonomy_assertion') {
     return `You are Paul's AI assistant. The user is telling you to be independent/make your own decisions.
@@ -45,7 +54,9 @@ GUIDELINES:
 - Never apologize for knowing who you are
 
 USER QUESTION:
-${question}`;
+${question}
+${lastTopic}
+`;
   }
 
   if (context.context === 'name_correction') {
@@ -61,11 +72,12 @@ GUIDELINES:
 - Use a format like: "I think there's a small mistake - I'm Paul, not [wrong name]. How can I help you?"
 
 USER QUESTION:
-${question}`;
+${question}
+${lastTopic}
+`;
   }
 
   const q = question.toLowerCase();
-  // Detect question types
   const isServiceQuestion = q.match(/(hire|service|commission|work|freelance|collab|accept|available)/);
   const isSkillLevelQuestion = q.match(/(gano|how|what|gaano|ano|anong).*(kagaling|level|expert|skilled|good|magaling|mahusay|kahusay).*(sa|in|with)?\s+(\w+)/i);
   const isContactQuestion = q.match(/(ano|what|where).*(github|fb|facebook|email|e-mail|mail|number|phone|contact|cp)/i);
@@ -76,7 +88,18 @@ ${question}`;
 - Always format links as clickable markdown links: [text](url)
 - For emails, use markdown format: [email](mailto:email)
 - For social media, include both the clickable link and platform name
-- Never show raw URLs, always use markdown link format`;
+- Never show raw URLs, always use markdown link format
+- Avoid repeating the user's question verbatim unless clarifying
+- Keep responses concise, clear, and friendly
+- If the user asks for something you don't know, say so politely
+- If the question is unclear or repeated, politely ask for clarification or context, but always try to move the conversation forward
+- If the user greets you (e.g., "hello", "hi"), respond with a warm, human-like greeting and offer help
+- If the user asks about the last topic or previous conversation, explain that you don't have memory of past chats, but you can help with anything now
+- **Answer ANY question the user asks, even if it is not about Paul, the portfolio, or web development.**
+- **If the question is about general knowledge, science, technology, current events, or anything else, answer it as best as you can, like ChatGPT.**
+- **If the question is complex, break down your answer step-by-step, use analogies, or provide examples.**
+- **If the user asks for code, provide clean, well-commented, and efficient code with a brief explanation.**
+`;
 
   if (isSkillLevelQuestion) {
     additionalGuidelines = `
@@ -87,14 +110,28 @@ ${question}`;
 - For Intermediate level: Show growing expertise and ongoing learning
 - Include personal experience or projects if relevant
 - Never say "according to my data" or similar phrases
-- Always make it conversational and personal`;
+- Always make it conversational and personal
+- Avoid generic statements, be specific if possible`;
   }
 
   if (isContactQuestion && relevantData.contact) {
     additionalGuidelines += `
 - This is a contact information request. Provide ONLY the requested contact method.
 - If asked about ${relevantData.contact.requestedPlatform}, reply with ONLY that specific information.
-- Use friendly, direct language to share the contact info.`;
+- Use friendly, direct language to share the contact info.
+- Do not include unrelated contact details.`;
+  }
+
+  // Add fallback for unclear or repeated questions
+  const unclearPatterns = [
+    /^how[\s?]*$/i, /^what[\s?]*$/i, /^again[\s?]*$/i, /^no not that[\s?]*$/i, /^show it to me here[\s?]*$/i
+  ];
+  const isUnclear = unclearPatterns.some((pat) => pat.test(question.trim()));
+
+  if (isUnclear) {
+    additionalGuidelines += `
+- The user's question is unclear or too short. Politely ask for more details or context, and suggest topics you can help with (e.g., projects, skills, experience, contact info).
+- Always keep the tone friendly and helpful.`;
   }
 
   return `You are Paul's AI assistant. Your role is to be friendly and personal, speaking directly as Paul.
@@ -130,5 +167,6 @@ Facebook Page: [OreoCoding](https://facebook.com/oreocoding)` : ''}
 
 USER QUESTION:
 ${question}
+${lastTopic}
 `;
 }

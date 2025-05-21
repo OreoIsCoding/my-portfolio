@@ -6,8 +6,8 @@ export function getRelevantData(question) {
     about: allData.about
   };
 
-  // Enhanced skill level detection
-  const skillLevelPattern = /(gano|how|what).*(kagaling|level|expert|skilled|good).*(sa|in|with)?\s+(\w+)/i;
+  //   skill level detection  
+  const skillLevelPattern = /(gano|how|what|gaano|ano|anong).*(kagaling|level|expert|skilled|good|magaling|mahusay|kahusay).*(sa|in|with)?\s+(\w+)/i;
   const skillMatch = q.match(skillLevelPattern);
 
   if (skillMatch) {
@@ -29,12 +29,12 @@ export function getRelevantData(question) {
     }
   }
 
-  // Check for direct contact info questions
+  // Improved contact info detection (support more keywords)
   const contactKeywords = {
-    github: ['github', 'gh'],
-    facebook: ['facebook', 'fb'],
-    email: ['email', 'e-mail', 'mail'],
-    phone: ['number', 'phone', 'contact', 'cp']
+    github: ['github', 'gh', 'git'],
+    facebook: ['facebook', 'fb', 'fb page', 'messenger'],
+    email: ['email', 'e-mail', 'mail', 'gmail'],
+    phone: ['number', 'phone', 'contact', 'cp', 'mobile', 'cellphone']
   };
 
   for (const [platform, keywords] of Object.entries(contactKeywords)) {
@@ -51,16 +51,16 @@ export function getRelevantData(question) {
     }
   }
 
-  // Semantic topic detection
+  //   semantic topic detection  
   const topics = {
-    education: ['school', 'study', 'aral', 'shs', 'college', 'university', 'graduate', 'student'],
-    work: ['work', 'job', 'career', 'trabaho', 'intern', 'ojt', 'experience'],
-    skills: ['skill', 'tech', 'programming', 'code', 'develop', 'language', 'framework'],
-    projects: ['project', 'portfolio', 'gawa', 'sample', 'work', 'create'],
-    services: ['hire', 'service', 'commission', 'work', 'freelance', 'collab', 'accept', 'available'],
-    contact: ['contact', 'reach', 'social', 'connect', 'message', 'email', 'chat','contacts'],
-    personal: ['relationship', 'girlfriend', 'single', 'jowa', 'crush', 'personal','gf'],
-    certificates: ['certificate', 'certification', 'cert', 'credentials', 'achievement', 'award']
+    education: ['school', 'study', 'aral', 'shs', 'college', 'university', 'graduate', 'student', 'educ', 'bachelor', 'course'],
+    work: ['work', 'job', 'career', 'trabaho', 'intern', 'ojt', 'experience', 'employed', 'employment'],
+    skills: ['skill', 'tech', 'programming', 'code', 'develop', 'language', 'framework', 'stack', 'technology'],
+    projects: ['project', 'portfolio', 'gawa', 'sample', 'work', 'create', 'build', 'output'],
+    services: ['hire', 'service', 'commission', 'work', 'freelance', 'collab', 'accept', 'available', 'offer'],
+    contact: ['contact', 'reach', 'social', 'connect', 'message', 'email', 'chat', 'contacts', 'inquire'],
+    personal: ['relationship', 'girlfriend', 'single', 'jowa', 'crush', 'personal', 'gf', 'partner', 'love life'],
+    certificates: ['certificate', 'certification', 'cert', 'credentials', 'achievement', 'award', 'recognition']
   };
 
   Object.entries(topics).forEach(([topic, keywords]) => {
