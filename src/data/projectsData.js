@@ -4,6 +4,16 @@ import quizBee from "../assets/project-images/QuizBee.jpg";
 import typingTest from "../assets/project-images/typing_test.jpg";
 import projectsDataJson from '../../datasets/projectsData.json';
 
-export const projectsData = projectsDataJson;
+// Map image filenames to imported images
+const imageMap = {
+  "my-portfolio.jpg": myPortfolio,
+  "snacf.jpg": enWeb,
+  "QuizBee.jpg": quizBee,
+  "typing_test.jpg": typingTest
+};
 
- 
+export const projectsData = projectsDataJson.map(project => ({
+  ...project,
+  image: imageMap[project.image] || project.image
+}));
+
