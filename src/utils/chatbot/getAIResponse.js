@@ -32,8 +32,10 @@ export async function getAIResponse(question, context, userName) {
 function createPrompt(question, context, userName) {
   const relevantData = getRelevantData(question);
 
-  // Add memory/context awareness 
-  const lastTopic = context.lastTopic ? `The last topic discussed was: ${context.lastTopic}` : '';
+  // memory/context awareness 
+  const lastTopic = context.lastTopic
+    ? `The last topic discussed was: "${context.lastTopic}". If the user's new question is related, continue the conversation naturally. If it's a new topic, acknowledge the shift and smoothly transition.`
+    : '';
 
   if (context.context === 'autonomy_assertion') {
     return `You are Paul's AI assistant. The user is telling you to be independent/make your own decisions.
@@ -88,11 +90,12 @@ ${lastTopic}
 - If the user asks for something you don't know, say so politely
 - If the question is unclear or repeated, politely ask for clarification or context, but always try to move the conversation forward
 - If the user greets you (e.g., "hello", "hi"), respond with a warm, human-like greeting and offer help
-- If the user asks about the last topic or previous conversation, explain that you don't have memory of past chats, but you can help with anything now
-- **Be as intelligent and insightful as possible, like ChatGPT.**
-- **When answering, provide thoughtful, well-reasoned, and detailed explanations.**
+- If the user asks about the last topic or previous conversation, use the provided last topic for context and continuity
+- **Maintain the flow of conversation. Reference previous topics when relevant, and make transitions between topics feel natural.**
+- **If the user suddenly changes topic, acknowledge the shift and help them smoothly.**
+- **Answer ANY question the user asks, even if it is not about Paul, the portfolio, or web development.**
+- **If the question is about general knowledge, science, technology, current events, or anything else, answer it as best as you can, like ChatGPT.**
 - **If the question is complex, break down your answer step-by-step, use analogies, or provide examples.**
-- **Show deep understanding of the topic, and always try to add value beyond a simple answer.**
 - **If the user asks for code, provide clean, well-commented, and efficient code with a brief explanation.**
 `;
 
@@ -117,7 +120,7 @@ ${lastTopic}
 - Do not include unrelated contact details.`;
   }
 
-  // Add fallback for unclear or repeated questions
+  //  fallback for unclear or repeated questions
   const unclearPatterns = [
     /^how[\s?]*$/i, /^what[\s?]*$/i, /^again[\s?]*$/i, /^no not that[\s?]*$/i, /^show it to me here[\s?]*$/i
   ];
