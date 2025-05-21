@@ -2,13 +2,25 @@ import React, { useEffect, useState } from "react";
 
 const BackToTop = () => {
   const [visible, setVisible] = useState(false);
+  const [chatOpen, setChatOpen] = useState(false);
 
   useEffect(() => {
     const onScroll = () => {
       setVisible(window.scrollY > 300);
     };
+
+    // Listen for chat state changes
+    const onChatChange = (e) => {
+      setChatOpen(e.detail.isOpen);
+    };
+
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    window.addEventListener("chatStateChange", onChatChange);
+
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("chatStateChange", onChatChange);
+    };
   }, []);
 
   const handleClick = () => {
@@ -30,7 +42,7 @@ const BackToTop = () => {
         hover:scale-110 hover:shadow-white/30 hover:border-white
         transition-all duration-300
         backdrop-blur-md
-        ${visible ? "opacity-100 pointer-events-auto scale-100" : "opacity-0 pointer-events-none scale-90"}
+        ${visible && !chatOpen ? "opacity-100 pointer-events-auto scale-100" : "opacity-0 pointer-events-none scale-90"}
         focus:outline-none
         group
       `}

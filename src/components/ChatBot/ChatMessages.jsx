@@ -19,99 +19,111 @@ const ChatMessages = ({ messages, isLoading, onLinkClick }) => {
   };
 
   useEffect(() => {
-    // Scroll to bottom on new messages
     scrollToBottom();
   }, [messages]);
 
+  //  message formatting
   const renderContent = (content) => {
     if (typeof content !== 'string') return content;
 
-    const paragraphs = content.split('\n').map((paragraph, index) => {
-      // Handle main bullet points
-      if (paragraph.trim().startsWith('• ')) {
-        const [title, ...details] = paragraph.substring(2).split('\n');
-        return (
-          <div key={index} className="mb-4">
-            <div className="flex items-start">
-              <span className="text-emerald-400 mr-2">•</span>
-              <span className="font-medium">{renderLinks(title)}</span>
-            </div>
-            <div className="ml-6 space-y-1">
-              {details.map((detail, i) => {
-                // Handle sub-bullet points
-                if (detail.trim().startsWith('- ')) {
-                  const [label, value] = detail.substring(2).split(': ');
-                  return (
-                    <div key={i} className="flex">
-                      <span className="text-gray-400 min-w-[100px]">{label}:</span>
-                      <span className="text-gray-200 ml-2">{renderLinks(value || '')}</span>
-                    </div>
-                  );
-                }
-                return (
-                  <div key={i} className="text-gray-300">
-                    {renderLinks(detail.trim())}
-                  </div>
-                );
-              })}
-            </div>
+    const lines = content.split('\n');
+    const formatted = [];
+    let listBuffer = [];
+    let sectionBuffer = [];
+
+    const flushSection = () => {
+      if (sectionBuffer.length > 0) {
+        formatted.push(
+          <div key={`section-${formatted.length}`} className="px-1 py-1.5 space-y-2">
+            {sectionBuffer}
           </div>
         );
+        sectionBuffer = [];
       }
-      return paragraph.trim() && (
-        <p key={index} className="mb-2">
-          {renderLinks(paragraph)}
+    };
+
+    const flushList = () => {
+      if (listBuffer.length > 0) {
+        sectionBuffer.push(
+          <ul key={`list-${sectionBuffer.length}`} className="space-y-2 pl-1">
+            {listBuffer.map((item, idx) => (
+              <li key={idx} className="flex items-start gap-2.5">
+                <span className="text-emerald-400 mt-1 flex-shrink-0">•</span>
+                <span className="text-gray-200">{renderLinks(item)}</span>
+              </li>
+            ))}
+          </ul>
+        );
+        listBuffer = [];
+      }
+    };
+
+    lines.forEach((line, idx) => {
+      const trimmed = line.trim();
+      
+      // Handle empty lines as section breaks
+      if (!trimmed) {
+        flushList();
+        flushSection();
+        return;
+      }
+
+      // Handle headings (lines ending with ':' without a value)
+      if (trimmed.match(/^[A-Za-z0-9 ]+:$/)) {
+        flushList();
+        sectionBuffer.push(
+          <h3 key={`heading-${idx}`} className="text-emerald-400 font-medium text-[1.05rem] mt-3 mb-2">
+            {trimmed.slice(0, -1)}
+          </h3>
+        );
+        return;
+      }
+
+      // Handle label-value pairs
+      const labelMatch = trimmed.match(/^([A-Za-z0-9 .,'\-\/()]+):\s*(.+)$/);
+      if (labelMatch) {
+        flushList();
+        const [, label, value] = labelMatch;
+        sectionBuffer.push(
+          <div key={`detail-${idx}`} className="bg-gray-800/50 rounded-lg p-3 border border-gray-700/30">
+            <div className="text-emerald-400/90 font-medium mb-1.5">{label}</div>
+            <div className="text-gray-200 leading-relaxed">{renderLinks(value)}</div>
+          </div>
+        );
+        return;
+      }
+
+      // Handle list items
+      if (trimmed.startsWith('• ') || trimmed.startsWith('- ')) {
+        listBuffer.push(trimmed.replace(/^[-•]\s*/, ''));
+        return;
+      }
+
+      // Handle regular paragraphs
+      flushList();
+      sectionBuffer.push(
+        <p key={`text-${idx}`} className="text-gray-200 leading-relaxed">
+          {renderLinks(trimmed)}
         </p>
       );
     });
 
-    // Group bullet points into lists
-    const formattedContent = [];
-    let currentList = [];
-
-    paragraphs.forEach((item, index) => {
-      if (item?.type === 'li') {
-        currentList.push(item);
-      } else {
-        if (currentList.length > 0) {
-          formattedContent.push(
-            <ul key={`list-${index}`} className="list-disc mb-2 space-y-1">
-              {currentList}
-            </ul>
-          );
-          currentList = [];
-        }
-        if (item) formattedContent.push(item);
-      }
-    });
-
-    // Add remaining list items if any
-    if (currentList.length > 0) {
-      formattedContent.push(
-        <ul key="list-final" className="list-disc mb-2 space-y-1">
-          {currentList}
-        </ul>
-      );
-    }
-
-    return formattedContent;
+    flushList();
+    flushSection();
+    return formatted;
   };
 
+  // Update the renderLinks function
   const renderLinks = (text) => {
     if (typeof text !== 'string') return text;
-
-    // Handle markdown-style links
     const markdownLinkRegex = /\[([^\]]+)\]\(([^)]+)\)/g;
     const parts = [];
     let lastIndex = 0;
 
     text.replace(markdownLinkRegex, (match, linkText, url, offset) => {
-      // Add text before the link
       if (offset > lastIndex) {
         parts.push(text.substring(lastIndex, offset));
       }
-
-      // Add the formatted link
       parts.push(
         <a
           key={offset}
@@ -121,64 +133,95 @@ const ChatMessages = ({ messages, isLoading, onLinkClick }) => {
             if (onLinkClick) onLinkClick(url);
           }}
           className="inline-flex items-center gap-1 text-emerald-400 hover:text-emerald-300 
-            transition-colors font-medium hover:underline cursor-pointer"
+            transition-colors font-medium hover:underline cursor-pointer bg-emerald-500/10 
+            px-2 py-0.5 rounded"
+          title={url}
         >
           {linkText}
         </a>
       );
-
       lastIndex = offset + match.length;
       return match;
     });
 
-    // Add remaining text
     if (lastIndex < text.length) {
       parts.push(text.substring(lastIndex));
     }
-
     return parts.length > 0 ? parts : text;
   };
 
   return (
-    <div 
+    <div
       ref={containerRef}
       onScroll={handleScroll}
-      className="h-[calc(100%-8.5rem)] overflow-y-auto p-4 space-y-6 bg-gray-950 relative"
+      className="h-[calc(100%-8.5rem)] overflow-y-auto p-2 sm:p-4 space-y-2 bg-gray-950 relative flex flex-col"
+      style={{ scrollbarWidth: 'thin', scrollbarColor: '#222 #18181b' }}
     >
       {messages.map((message, i) => (
         <div
           key={i}
-          className={`flex items-end gap-2 ${message.role === 'user' ? 'flex-row-reverse' : 'flex-row'}`}
+          className={`
+            flex items-end
+            ${message.role === 'user' ? 'justify-end' : 'justify-start'}
+            w-full
+          `}
         >
-          <div className={`w-8 h-8 rounded-full flex items-center justify-center
-            ${message.role === 'user' 
-              ? 'bg-emerald-500' 
-              : 'bg-gray-800'}`}
+          {/* Avatar only for assistant, like Messenger */}
+          {message.role !== 'user' && (
+            <div className="flex-shrink-0 mr-2">
+              <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-gray-800 flex items-center justify-center">
+                <FaRobot className="text-white text-xs sm:text-sm" />
+              </div>
+            </div>
+          )}
+          <div className={`
+            max-w-[85vw] sm:max-w-[65vw] md:max-w-[45vw] lg:max-w-[35vw] xl:max-w-[28vw]
+            rounded-2xl px-4 py-2.5 sm:px-5 sm:py-3
+            ${message.role === 'user'
+              ? 'bg-emerald-500 text-white rounded-br-none rounded-tr-2xl rounded-tl-2xl ml-auto'
+              : 'bg-gray-800/80 text-white/95 rounded-bl-2xl rounded-tr-2xl rounded-tl-2xl border border-gray-700/50'}
+            font-sans text-[0.9rem] sm:text-[0.95rem] leading-relaxed
+            break-words w-fit
+            backdrop-blur-sm
+            shadow-lg
+            transition-all
+          `}
+            style={{
+              wordBreak: 'break-word',
+              overflowWrap: 'break-word',
+            }}
           >
-            {message.role === 'user' 
-              ? <FaUser className="text-white text-sm" />
-              : <FaRobot className="text-white text-sm" />
-            }
-          </div>
-          <div className={`max-w-[75%] rounded-2xl px-4 py-3
-            ${message.role === 'user' 
-              ? 'bg-emerald-500 text-white rounded-br-none' 
-              : 'bg-gray-900 text-white/90 rounded-bl-none border border-gray-800'}
-            font-sans text-[0.95rem] leading-relaxed shadow-lg`}
-          >
-            <div className="whitespace-pre-wrap break-words">
-              {renderContent(message.content)}
+            <div className="w-full break-words">
+              {message.role === 'assistant' ? (
+                <div className="space-y-2">
+                  {renderContent(message.content)}
+                </div>
+              ) : (
+                <div className="text-white/95">
+                  {message.content}
+                </div>
+              )}
             </div>
           </div>
+          {/* Avatar for user*/}
+          {message.role === 'user' && (
+            <div className="flex-shrink-0 ml-2">
+              <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-emerald-500 flex items-center justify-center">
+                <FaUser className="text-white text-xs sm:text-sm" />
+              </div>
+            </div>
+          )}
         </div>
       ))}
-      
+
       {isLoading && (
-        <div className="flex items-end gap-2">
-          <div className="w-8 h-8 rounded-full bg-gray-800 flex items-center justify-center">
-            <FaRobot className="text-white text-sm" />
+        <div className="flex items-end justify-start">
+          <div className="flex-shrink-0 mr-2">
+            <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-gray-800 flex items-center justify-center">
+              <FaRobot className="text-white text-xs sm:text-sm" />
+            </div>
           </div>
-          <div className="bg-gray-900 rounded-2xl rounded-bl-none border border-gray-800 p-4">
+          <div className="bg-gray-900 rounded-2xl rounded-bl-2xl rounded-tr-2xl rounded-tl-2xl border border-gray-800 p-3 max-w-[85vw] sm:max-w-[65vw] md:max-w-[45vw] lg:max-w-[35vw] xl:max-w-[28vw]">
             <TypingIndicator />
           </div>
         </div>

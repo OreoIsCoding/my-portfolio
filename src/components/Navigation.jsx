@@ -37,8 +37,8 @@ const Navigation = () => {
       {/* Menu Toggle Button */}
       <button
         onClick={() => setIsMenuOpen(!isMenuOpen)}
-        className={`lg:hidden fixed right-3 top-3 p-2 rounded-xl bg-white/5 backdrop-blur-sm 
-                    border border-white/10 text-white hover:bg-white/10 transition-all duration-300 z-[9999]`}
+        className={`${menuButtonStyles} z-[9999]`}
+        data-nav-menu-button
       >
         <svg
           className="w-6 h-6"

@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { FaRobot, FaTimes, FaPaperPlane, FaTrash } from 'react-icons/fa';
+import { FaRobot, FaTimes, FaPaperPlane, FaRedo } from 'react-icons/fa';
 import { getResponse } from './responseHandler';
 import ChatMessages from './ChatMessages';
+import DraggableButton from './DraggableButton';
 
 const WELCOME_GUIDE = `Hi! I'm Paul's chatbot assistant. I can help you with:
 
@@ -99,6 +100,26 @@ const ChatBot = () => {
     }
   }, [isOpen]);
 
+  // Add effect to handle navigation menu button visibility
+  useEffect(() => {
+    const menuButton = document.querySelector('[data-nav-menu-button]');
+    if (menuButton && isOpen) {
+      menuButton.style.visibility = 'hidden';
+      menuButton.style.opacity = '0';
+    } else if (menuButton) {
+      menuButton.style.visibility = 'visible';
+      menuButton.style.opacity = '1';
+    }
+  }, [isOpen]);
+
+  // Dispatch chat state changes
+  useEffect(() => {
+    const event = new CustomEvent("chatStateChange", { 
+      detail: { isOpen } 
+    });
+    window.dispatchEvent(event);
+  }, [isOpen]);
+
   const handleSend = async () => {
     if (!input.trim() || isLoading) return;
 
@@ -179,112 +200,138 @@ const ChatBot = () => {
   };
 
   return (
-    <div className={`fixed right-0 top-1/2 -translate-y-1/2 z-50 flex items-center
-      transition-all duration-300 ${!isOpen ? 'translate-x-[calc(100%-3rem)]' : ''}`}>
+    <>
+      {/* Draggable button for both mobile and desktop */}
+      <DraggableButton onClick={() => setIsOpen(true)} isVisible={!isOpen} />
       
-      {/* Chat Tab Button */}
-      <button
-        onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center justify-center bg-gray-900/95 
-          text-emerald-400 h-24 w-12 rounded-l-xl border border-r-0 border-gray-700 
-          hover:bg-gray-800 hover:text-emerald-300 transition-all duration-300
-          relative group shadow-lg"
-      >
-        <FaRobot className="text-xl" />
-        <span className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-full
-          bg-gray-900 text-white text-sm px-3 py-1.5 rounded-lg whitespace-nowrap 
-          opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity
-          border border-gray-700 shadow-lg">
-          Chat with Paul
-        </span>
-      </button>
-
-      {/* Chat Window */}
-      <div ref={chatWindowRef} 
-        className="w-[90vw] sm:w-96 h-[80vh] bg-gray-950 
-          border-y border-l border-gray-800 overflow-hidden rounded-l-xl shadow-2xl">
-        {/* Header */}
-        <div className="flex items-center justify-between p-4 border-b border-gray-800 bg-gray-900">
-          <div className="flex items-center gap-2">
-            <FaRobot className="text-emerald-400 text-lg" />
-            <h3 className="text-white font-medium">Paul's Chat Assistant</h3>
-          </div>
-          <div className="flex items-center gap-2">
-            <button
-              onClick={() => setShowResetConfirm(true)}
-              className="text-gray-400 hover:text-white transition-colors p-1"
-              title="Reset Chat"
-            >
-              <FaTrash className="text-sm" />
-            </button>
-            <button
-              onClick={() => setIsOpen(false)}
-              className="text-gray-400 hover:text-white transition-colors p-1"
-            >
-              <FaTimes />
-            </button>
-          </div>
-        </div>
-
-        <ChatMessages 
-          messages={messages} 
-          isLoading={isLoading} 
-          onLinkClick={handleLinkClick}
-        />
-
-        {/* Reset Confirmation Modal */}
-        {showResetConfirm && (
-          <div className="absolute inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center">
-            <div className="bg-gray-900 p-6 rounded-lg border border-gray-800 shadow-xl max-w-[80%]">
-              <h4 className="text-white font-medium mb-3">Reset Chat?</h4>
-              <p className="text-gray-300 text-sm mb-4">
-                This will clear all messages and start a new conversation.
-              </p>
-              <div className="flex justify-end gap-3">
+      {/* Chat overlay for both mobile and desktop */}
+      {isOpen && (
+        <div className="fixed inset-0 z-[60]">
+          <div className="absolute inset-0 bg-black/20 backdrop-blur-sm" />
+          <div ref={chatWindowRef} 
+            className="absolute inset-2 sm:inset-auto sm:right-4 sm:top-1/2 sm:-translate-y-1/2
+              sm:w-[420px] sm:h-[600px] md:w-[450px] md:h-[650px] lg:w-[480px] lg:h-[700px]
+              bg-gray-950 rounded-2xl shadow-2xl 
+              border border-gray-800 overflow-hidden">
+            {/* Header - Add close button for mobile */}
+            <div className="flex items-center justify-between p-4 border-b border-gray-800 bg-gray-900">
+              <div className="flex items-center gap-2">
+                <FaRobot className="text-emerald-400 text-lg" />
+                <h3 className="text-white font-medium">Paul's Chat Assistant</h3>
+              </div>
+              <div className="flex items-center gap-3">
                 <button
-                  onClick={() => setShowResetConfirm(false)}
-                  className="px-4 py-2 text-sm text-gray-300 hover:text-white transition-colors"
+                  onClick={() => setShowResetConfirm(true)}
+                  className="text-gray-400 hover:text-white transition-colors p-1.5"
+                  title="Reset Chat"
                 >
-                  Cancel
+                  <FaRedo className="text-sm" />
                 </button>
                 <button
-                  onClick={handleReset}
-                  className="px-4 py-2 text-sm bg-red-500 text-white rounded-lg
-                    hover:bg-red-600 transition-colors"
+                  onClick={() => setIsOpen(false)}
+                  className="text-gray-400 hover:text-white transition-colors p-1.5"
+                  title="Close Chat"
                 >
-                  Reset
+                  <FaTimes />
                 </button>
               </div>
             </div>
-          </div>
-        )}
 
-        {/* Input Section */}
-        <div className="p-4 border-t border-gray-800 bg-gray-900">
-          <div className="flex gap-2">
-            <input
-              type="text"
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              onKeyPress={(e) => e.key === 'Enter' && handleSend()}
-              placeholder="Type a message..."
-              className="flex-1 bg-gray-800 text-white rounded-xl px-4 py-2.5
-                placeholder:text-gray-400 focus:outline-none focus:ring-2 
-                focus:ring-emerald-500/50 border border-gray-700"
+            {/* Messages Section - Existing ChatMessages component */}
+            <ChatMessages 
+              messages={messages} 
+              isLoading={isLoading} 
+              onLinkClick={handleLinkClick}
             />
-            <button
-              onClick={handleSend}
-              disabled={isLoading}
-              className="p-2.5 bg-emerald-500 text-white rounded-xl
-                hover:bg-emerald-600 disabled:opacity-50 disabled:cursor-not-allowed
-                transition-colors shadow-lg"
-            >
-              <FaPaperPlane />
-            </button>
+
+            {/* Input Section - Update padding and sizing */}
+            <div className="p-3 sm:p-4 border-t border-gray-800 bg-gray-900/95 backdrop-blur-sm">
+              <div className="flex gap-2 sm:gap-3 items-center">
+                <input
+                  type="text"
+                  value={input}
+                  onChange={(e) => setInput(e.target.value)}
+                  onKeyPress={(e) => e.key === 'Enter' && handleSend()}
+                  placeholder="Type a message..."
+                  className="flex-1 bg-gray-800/90 text-white text-sm sm:text-base
+                    rounded-xl sm:rounded-2xl px-4 sm:px-5 py-3 sm:py-3.5
+                    placeholder:text-gray-400 focus:outline-none focus:ring-2 
+                    focus:ring-emerald-500/40 border border-gray-700/50
+                    shadow-inner transition-all duration-200
+                    hover:border-gray-600/50 focus:border-emerald-500/50"
+                />
+                <button
+                  onClick={handleSend}
+                  disabled={isLoading}
+                  className="p-3 sm:p-3.5 bg-emerald-500 text-white 
+                    rounded-xl sm:rounded-2xl
+                    hover:bg-emerald-600 disabled:opacity-50 disabled:cursor-not-allowed
+                    transition-all duration-200 shadow-lg hover:shadow-emerald-500/20
+                    active:scale-95 disabled:scale-100 hover:-translate-y-0.5
+                    disabled:hover:translate-y-0 flex-shrink-0"
+                >
+                  <FaPaperPlane className="text-sm sm:text-base" />
+                </button>
+              </div>
+            </div>
+
+            {/* Reset Confirmation Modal */}
+            {showResetConfirm && (
+              <div className="absolute inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center">
+                <div className="bg-gray-900 p-6 rounded-lg border border-gray-800 shadow-xl max-w-[80%]">
+                  <h4 className="text-white font-medium mb-3">Reset Chat?</h4>
+                  <p className="text-gray-300 text-sm mb-4">
+                    This will clear all messages and start a new conversation.
+                  </p>
+                  <div className="flex justify-end gap-3">
+                    <button
+                      onClick={() => setShowResetConfirm(false)}
+                      className="px-4 py-2 text-sm text-gray-300 hover:text-white transition-colors"
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      onClick={handleReset}
+                      className="px-4 py-2 text-sm bg-red-500 text-white rounded-lg
+                        hover:bg-red-600 transition-colors"
+                    >
+                      Reset
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         </div>
-      </div>
-    </div>
+      )}
+
+      {/* Reset confirmation modal */}
+      {showResetConfirm && (
+        <div className="absolute inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center">
+          <div className="bg-gray-900 p-6 rounded-lg border border-gray-800 shadow-xl max-w-[80%]">
+            <h4 className="text-white font-medium mb-3">Reset Chat?</h4>
+            <p className="text-gray-300 text-sm mb-4">
+              This will clear all messages and start a new conversation.
+            </p>
+            <div className="flex justify-end gap-3">
+              <button
+                onClick={() => setShowResetConfirm(false)}
+                className="px-4 py-2 text-sm text-gray-300 hover:text-white transition-colors"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleReset}
+                className="px-4 py-2 text-sm bg-red-500 text-white rounded-lg
+                  hover:bg-red-600 transition-colors"
+              >
+                Reset
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </>
   );
 };
 
