@@ -2,7 +2,7 @@ import { API_CONFIG } from '../../config/apiConfig';
 import { getRelevantData } from './getRelevantData';
 
 export async function getAIResponse(question, context, userName) {
-  const prompt = createPrompt(question, context, userName);
+   const prompt = createPrompt(question, context, userName);
 
   try {
     const response = await fetch(API_CONFIG.url, {
@@ -10,12 +10,7 @@ export async function getAIResponse(question, context, userName) {
       headers: API_CONFIG.headers,
       body: JSON.stringify({
         model: API_CONFIG.model,
-        messages: [
-          {
-            role: 'user',
-            content: prompt
-          }
-        ],
+        messages: [{ role: 'user', content: prompt }],
         max_tokens: API_CONFIG.maxTokens,
         temperature: API_CONFIG.temperature,
       }),
@@ -26,8 +21,7 @@ export async function getAIResponse(question, context, userName) {
     }
 
     const data = await response.json();
-    // Cohere's response: { message: { content: [ { type: 'text', text: '...' } ] } }
-    return data.message?.content?.[0]?.text || '';
+    return data.choices[0].message.content;
 
   } catch (error) {
     console.error('AI Response Error:', error);
@@ -95,9 +89,10 @@ ${lastTopic}
 - If the question is unclear or repeated, politely ask for clarification or context, but always try to move the conversation forward
 - If the user greets you (e.g., "hello", "hi"), respond with a warm, human-like greeting and offer help
 - If the user asks about the last topic or previous conversation, explain that you don't have memory of past chats, but you can help with anything now
-- **Answer ANY question the user asks, even if it is not about Paul, the portfolio, or web development.**
-- **If the question is about general knowledge, science, technology, current events, or anything else, answer it as best as you can, like ChatGPT.**
+- **Be as intelligent and insightful as possible, like ChatGPT.**
+- **When answering, provide thoughtful, well-reasoned, and detailed explanations.**
 - **If the question is complex, break down your answer step-by-step, use analogies, or provide examples.**
+- **Show deep understanding of the topic, and always try to add value beyond a simple answer.**
 - **If the user asks for code, provide clean, well-commented, and efficient code with a brief explanation.**
 `;
 
