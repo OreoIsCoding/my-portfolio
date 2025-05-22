@@ -12,6 +12,12 @@
     "tech": ["React", "TailwindCSS", "JavaScript"]
   },
   {
+    "title": "Vehicle Trip Management System",
+    "description": "I was one of the contributors in this project. \nThis system streamlines the process of requesting, approving, and managing vehicle trips for the Bulacan State University community, ensuring efficient and transparent transportation services for official university business.\nIt provides a centralized platform for faculty, staff, and administrators to easily access and utilize university transportation resources.",
+    "image": "cao.jpg",
+    "tech": ["React", "TailwindCSS", "JavaScript", "Laravel"]
+  },
+  {
     "title": "QuizBee",
     "description": "A quiz web application built with HTML5, CSS3, and JavaScript. It allows users to take quizzes, view results, and track progress. The admin can create and manage quizzes. It is real-time like kahoot.",
     "image": "QuizBee.jpg",
@@ -23,4 +29,6 @@
     "image": "typing_test.jpg",
     "tech": ["HTML5", "CSS3", "JavaScript"]
   }
+  
+    
 ]
