@@ -102,7 +102,7 @@ const Navigation = () => {
           ))}
 
           <a
-            // href="/path-to-your-cv.pdf"
+            href="https://drive.google.com/uc?export=download&id=1Bn5X5rbceMmX4gq04_TyIXjataDwWY4U"
             download
             className="px-3 py-1.5 rounded-full bg-white text-black/90 hover:bg-white/90
               transition-all duration-300 text-xs font-medium 
