@@ -1,7 +1,49 @@
 import { API_CONFIG } from '../../config/apiConfig';
 import { getRelevantData } from './getRelevantData';
 
+// --- Abuse Protection: Simple Rate Limiting and Word Filter ---
+
+// In-memory rate limit store (per userName)
+const rateLimitStore = {};
+const RATE_LIMIT_WINDOW_MS = 60 * 1000; // 1 minute para sa rate limit
+const RATE_LIMIT_MAX_REQUESTS = 5;
+
+// Offensive word filter (add more as needed)
+const OFFENSIVE_WORDS = [
+  // Intentionally left minimal; let the AI model handle most inappropriate content.
+];
+
+// Helper: Check for offensive words
+function containsOffensiveWords(text) {
+  const lower = text.toLowerCase();
+  return OFFENSIVE_WORDS.some(word => lower.includes(word));
+}
+
+// Rate limit check
+function isRateLimited(userName) {
+  const now = Date.now();
+  if (!rateLimitStore[userName]) {
+    rateLimitStore[userName] = [];
+  }
+  // Remove old timestamps
+  rateLimitStore[userName] = rateLimitStore[userName].filter(ts => now - ts < RATE_LIMIT_WINDOW_MS);
+  if (rateLimitStore[userName].length >= RATE_LIMIT_MAX_REQUESTS) {
+    return true;
+  }
+  rateLimitStore[userName].push(now);
+  return false;
+}
+
 export async function getAIResponse(question, context, userName) {
+  // Abuse Protection: Word filter
+  if (containsOffensiveWords(question)) {
+    return "Sorry, I can't assist with that request.";
+  }
+  // Abuse Protection: Rate limiting
+  if (isRateLimited(userName)) {
+    return "You're sending messages too quickly. Please wait a moment before asking another question.";
+  }
+
    const prompt = createPrompt(question, context, userName);
 
   try {
