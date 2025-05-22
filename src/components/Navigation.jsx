@@ -102,7 +102,7 @@ const Navigation = () => {
           ))}
 
           <a
-            href="https://drive.google.com/uc?export=download&id=1Bn5X5rbceMmX4gq04_TyIXjataDwWY4U"
+            href="https://drive.google.com/file/d/1Bn5X5rbceMmX4gq04_TyIXjataDwWY4U/view?usp=drive_link"
             download
             className="px-3 py-1.5 rounded-full bg-white text-black/90 hover:bg-white/90
               transition-all duration-300 text-xs font-medium 
