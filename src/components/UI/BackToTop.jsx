@@ -39,7 +39,7 @@ const BackToTop = () => {
         bg-transparent
         border-2 border-white/80
         shadow-2xl
-        hover:scale-110 hover:shadow-white/30 hover:border-white
+        // hover:scale-110 hover:shadow-white/30 hover:border-white
         transition-all duration-300
         backdrop-blur-md
         ${visible && !chatOpen ? "opacity-100 pointer-events-auto scale-100" : "opacity-0 pointer-events-none scale-90"}
@@ -48,7 +48,8 @@ const BackToTop = () => {
       `}
     >
       <svg
-        className="w-7 h-7 sm:w-8 sm:h-8 text-white group-hover:text-white transition-colors duration-300 drop-shadow"
+        className="w-7 h-7 sm:w-8 sm:h-8 text-white group-hover:text-white transition-all duration-300 drop-shadow
+          transform group-hover:-translate-y-2"
         fill="none"
         stroke="currentColor"
         strokeWidth={2.2}
