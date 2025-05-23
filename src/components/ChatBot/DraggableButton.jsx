@@ -111,14 +111,20 @@ const DraggableButton = ({ onClick, isVisible = true }) => {
         touchAction: 'none',
         transition: dragging 
           ? 'none' 
-          : 'left 0.2s, top 0.2s, box-shadow 0.2s, opacity 0.2s',
-        boxShadow: dragging ? '0 0 0 4px #34d39944' : '0 4px 24px #0004',
+          : 'all 0.3s ease-in-out',
+        boxShadow: dragging 
+          ? '0 0 0 4px rgba(255, 255, 255, 0.2)' 
+          : '0 4px 24px rgba(0, 0, 0, 0.2), inset 0 0 0 1px rgba(255, 255, 255, 0.1)',
         cursor: dragging ? 'grabbing' : 'pointer',
         userSelect: 'none',
         opacity: isVisible ? 1 : 0,
         pointerEvents: isVisible ? 'auto' : 'none',
+        mixBlendMode: 'difference',
       }}
-      className="bg-emerald-500 hover:bg-emerald-600 text-white rounded-full flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-emerald-400 active:scale-95"
+      className="bg-white/5 hover:bg-white/10 text-white rounded-full flex items-center justify-center 
+        focus:outline-none focus:ring-2 focus:ring-white/30 active:scale-95 backdrop-blur-md
+        before:absolute before:inset-0 before:rounded-full before:bg-gradient-to-r 
+        before:from-white/10 before:to-transparent before:animate-gradient"
       onMouseDown={handleDragStart}
       onTouchStart={handleDragStart}
       onTouchMove={handleDrag}
