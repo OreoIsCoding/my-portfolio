@@ -26,7 +26,8 @@
       { "name": "Git", "level": "Advanced" },
       { "name": "VS Code", "level": "Advanced" },
       { "name": "Figma", "level": "Advanced" },
-      { "name": "RESTful APIs", "level": "Advanced" }
+      { "name": "RESTful APIs", "level": "Advanced" },
+      { "name": "Npm", "level": "Intermediate" }
     ]
   }
 ]

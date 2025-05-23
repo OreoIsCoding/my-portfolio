@@ -81,6 +81,7 @@ export function getRelevantData(question) {
         case 'services':
           data.services = {
             available: true,
+            services: allData.services,
             skills: allData.skills,
             contact: {
               ...allData.social,

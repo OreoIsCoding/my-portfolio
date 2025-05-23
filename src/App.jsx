@@ -5,6 +5,7 @@ import About from "./components/sections/about/About";
 import Skills from "./components/sections/skills/Skills";
 import Projects from "./components/sections/projects/Projects";
 import Games from "./components/sections/minigame/MiniGame";
+import Services from "./components/sections/services/Services";
 import profileImg from "./assets/right-bg-2.png";
 import AnimatedBackground from "./components/AnimatedBackground";
 import Footer from "./components/Footer";
@@ -144,6 +145,7 @@ const App = () => {
       <About />
       <Skills />
       <Projects />
+      <Services />
       <Games />
       <Footer />
       <BackToTop />

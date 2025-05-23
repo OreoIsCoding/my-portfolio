@@ -1,0 +1,27 @@
+[
+    {
+        "id": 1,
+        "title": "Web Development",
+        "description": "I build responsive and optimized websites using modern technologies like React, Tailwind CSS, and Firebase.",
+        "keywords": ["react", "tailwind", "firebase", "website", "frontend", "web app"]
+    },
+    {
+        "id": 2,
+        "title": "UI/UX Design",
+        "description": "I design user interfaces that are clean, intuitive, and user-focused using Figma and Tailwind UI principles.",
+        "keywords": ["figma", "ui", "ux", "design", "wireframe", "prototyping"]
+    },
+    {
+        "id": 3,
+        "title": "Backend Development",
+        "description": "I build scalable backend APIs using Firebase Functions. I also have experience with Python, PHP, Java, and SQL.",
+        "keywords": ["api", "firebase functions", "python", "php", "java", "sql"]
+    },
+    
+    {
+        "id": 4,
+        "title": "Database Integration",
+        "description": "I integrate Firebase Realtime DB, Firestore, or MySQL into web projects for dynamic data handling. I integrate Firebase Realtime DB, Firestore, or MySQL into web projects for dynamic data handling.I integrate Firebase Realtime DB, Firestore, or MySQL into web projects for dynamic data handling.I integrate Firebase Realtime DB, Firestore, or MySQL into web projects for dynamic data handling.I integrate Firebase Realtime DB, Firestore, or MySQL into web projects for dynamic data handling.I integrate Firebase Realtime DB, Firestore, or MySQL into web projects for dynamic data handling.I integrate Firebase Realtime DB, Firestore, or MySQL into web projects for dynamic data handling.I integrate Firebase Realtime DB, Firestore, or MySQL into web projects for dynamic data handling.I integrate Firebase Realtime DB, Firestore, or MySQL into web projects for dynamic data handling.",
+        "keywords": ["firebase", "firestore", "mysql", "database", "dynamic content"]
+    }
+]

@@ -3,6 +3,7 @@ import { skillsData } from './skillsData';
 import { projectsData } from './projectsData';
 import { experienceData as timelineExperienceData, educationData, certificatesData } from './timelineData';
 import { socialLinks } from '../components/ChatBot/socialLinks';
+import {servicesData} from '../../datasets/servicesData.json';
 
  
 
@@ -15,5 +16,5 @@ export const allData = {
   education: educationData,
   certificates: certificatesData,
   social: socialLinks,
-   
+  services: servicesData
 };
