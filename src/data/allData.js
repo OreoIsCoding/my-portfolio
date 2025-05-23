@@ -3,9 +3,7 @@ import { skillsData } from './skillsData';
 import { projectsData } from './projectsData';
 import { experienceData as timelineExperienceData, educationData, certificatesData } from './timelineData';
 import { socialLinks } from '../components/ChatBot/socialLinks';
-import {servicesData} from '../../datasets/servicesData.json';
-
- 
+import { servicesData } from './servicesData';
 
 // Export all data as a single object
 export const allData = {
